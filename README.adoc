@@ -1,0 +1,19 @@
+== *Sample App Project*
+
+// What is it about ?
+
+=== 1. The components the project
+
+==== 1.1. Backoffice
+
+==== 1.2. API
+
+=== 2. Launching the project locally
+
+=== 3. Building the project locally
+
+=== 4. Deploying the project
+
+==== 4.1. Deploying to Test
+
+==== 4.2. Deploying to Production
