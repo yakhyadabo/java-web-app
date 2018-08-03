@@ -30,6 +30,7 @@
 
   <modules>
     <module>app-domain</module>
+    <module>app-db-migration</module>
     <module>app-backoffice</module>
     <module>app-api</module>
   </modules>
