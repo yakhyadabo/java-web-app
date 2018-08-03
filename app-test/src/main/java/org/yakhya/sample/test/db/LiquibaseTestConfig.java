@@ -1,4 +1,5 @@
-package org.yakhya.sample.domain.mapper.config;
+package org.yakhya.sample.test.db;
+
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.jdbc.DataSourceBuilder;
