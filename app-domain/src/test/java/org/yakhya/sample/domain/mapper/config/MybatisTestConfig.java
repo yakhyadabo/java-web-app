@@ -1,10 +1,11 @@
-package org.yakhya.sample.domain.mapper;
+package org.yakhya.sample.domain.mapper.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -12,6 +13,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan({"org.yakhya.sample.domain.mapper"})
+@Import(LiquibaseTestConfig.class)
 public class MybatisTestConfig {
   @Bean
   public DataSource getDataSource() {
