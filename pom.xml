@@ -33,6 +33,7 @@
     <module>app-db-migration</module>
     <module>app-backoffice</module>
     <module>app-api</module>
+    <module>app-test</module>
   </modules>
 
 
