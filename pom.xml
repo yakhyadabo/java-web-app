@@ -26,6 +26,7 @@
     <junit-jupiter.version>5.2.0</junit-jupiter.version>
     <junit-platform.version>1.2.0</junit-platform.version>
     <org.projectlombok.version>1.16.6</org.projectlombok.version>
+    <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
   </properties>
 
   <modules>
@@ -39,6 +40,13 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jetty</artifactId>
+        <version>${spring-boot.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
@@ -78,7 +86,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
-        <version>2.0.3.RELEASE</version>
+        <version>${spring-boot.version}</version>
         <scope>test</scope>
         <!-- Exclude JUnit 4 from starter-test (and all other related test-starter, i.e those for security and project reactor -->
         <exclusions>
