@@ -1,4 +1,4 @@
-package org.yakhya.sample.domain.mapper.config;
+package org.yakhya.sample.domain.config;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -13,7 +13,7 @@ import org.yakhya.sample.test.db.LiquibaseTestConfig;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan({"org.yakhya.sample.domain.mapper"})
+@MapperScan({"org.yakhya.sample.domain.mapper","org.yakhya.sample.domain.repository"})
 @Import(LiquibaseTestConfig.class)
 public class MybatisTestConfig {
   @Bean
