@@ -13,7 +13,7 @@ import org.yakhya.sample.test.db.LiquibaseTestConfig;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan({"org.yakhya.sample.domain.mapper","org.yakhya.sample.domain.repository"})
+@MapperScan({"org.yakhya.sample.domain.mapper"})
 @Import(LiquibaseTestConfig.class)
 public class MybatisTestConfig {
   @Bean
