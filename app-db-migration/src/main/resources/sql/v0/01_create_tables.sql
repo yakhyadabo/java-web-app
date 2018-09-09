@@ -5,5 +5,6 @@
 CREATE TABLE sample_user(
   id SERIAL PRIMARY KEY,
   login VARCHAR(25) NOT NULL,
-  password VARCHAR(35) NOT NULL
+  password VARCHAR(35) NOT NULL,
+  role VARCHAR(35) NOT NULL
 );

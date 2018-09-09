@@ -38,10 +38,11 @@
       <artifactId>liquibase-core</artifactId>
     </dependency>
 
-<!--    <dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-    </dependency>-->
+      <version>9.3-1100-jdbc41</version>
+    </dependency>
 
   </dependencies>
 
