@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration*/
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApiControllerTest {
-  private static final String TEMPLATE_PREFIX = "/WEB-INF/templates/";
+  private static final String TEMPLATE_PREFIX = "templates/";
   private static final String TEMPLATE_SUFFIX = ".html";
 
   @InjectMocks
@@ -71,10 +71,10 @@ public class ApiControllerTest {
   public void shouldReturnDefaultMessage() throws Exception {
     when(userService.getUsers()).thenReturn(Arrays.asList(new User()));
 
-   mockMvc.perform(get("/users"))//.andDo(print())
+   mockMvc.perform(get("/user/lists"))//.andDo(print())
 
-       .andExpect(status().is2xxSuccessful());
-        //.andExpect(content().string(containsString("Hello World")));
+       .andExpect(status().is2xxSuccessful())
+       .andExpect(content().string(containsString("Hello World")));
   }
 
   private InternalResourceViewResolver viewResolver() {

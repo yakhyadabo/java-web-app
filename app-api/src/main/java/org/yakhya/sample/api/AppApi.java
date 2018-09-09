@@ -1,51 +1,35 @@
 package org.yakhya.sample.api;
 
-import java.util.List;
-
-//import com.peopleinput.iris.core.web.config.IrisResponseResolver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.server.WebServer;
-// import org.springframework.boot.web.servlet.ErrorPage;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.yakhya.sample.api.config.AppResponseResolver;
 
-@SpringBootApplication
-public class AppApi extends SpringBootServletInitializer {
+import java.util.List;
+
+// import org.springframework.boot.web.servlet.ErrorPage;
+
+//@SpringBootApplication
+@EnableAutoConfiguration
+@ComponentScan(basePackages = {
+    "org.yakhya.sample.api.controller",
+    "org.yakhya.sample.api.service",
+    "org.yakhya.sample.domain.config"})
+public class AppApi implements WebMvcConfigurer {
+
+  public static void main(String[] args) {
+    SpringApplication.run(AppApi.class,args);
+  }
 
   @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-    return builder.sources(AppApi.class);
+  public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers){
+    handlers.add(new AppResponseResolver());
   }
 
-  public static void main(String[] args) {
-    SpringApplication.run(AppApi.class);
-  }
 }
 /*
-@EnableAutoConfiguration
-@ComponentScan(basePackages = {"org.yakhya.sample.api"})
-public class AppApi {
-
-  public static void main(String[] args) {
-    SpringApplication.run(AppApi.class, args);
-  }
-
-  @Bean
-  public WebMvcConfigurerAdapter observableMVCConfiguration() {
-    return new WebMvcConfigurerAdapter() {
-      @Override
-      public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
-        returnValueHandlers.add(new IrisResponseResolver());
-      }
-    };
-  }
 
   @Bean
   public WebServer containerCustomizer() {
