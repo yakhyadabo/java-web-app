@@ -1,0 +1,13 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.6
+    volumes: 
+       - ./data:/var/lib/postgresql
+    environment:
+      - POSTGRES_DB=app-db
+      - POSTGRES_USER=app-user
+      - POSTGRES_PASSWORD=app-password
+    ports:
+      - "5432:5432"
+
