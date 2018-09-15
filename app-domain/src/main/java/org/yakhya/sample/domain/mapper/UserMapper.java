@@ -19,7 +19,7 @@ public interface UserMapper {
   List<User> selectAll();
 
   @Select(SELECT_BY_ID)
-  User selectById(String id);
+  User selectById(Long id);
 
   @Insert(INSERT_USER)
   @Options(useGeneratedKeys = true, keyProperty="id")

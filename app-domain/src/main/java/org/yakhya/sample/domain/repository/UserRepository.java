@@ -17,7 +17,7 @@ public class UserRepository {
     return userMapper.selectAll();
   }
 
-  public User findUser(String id){
+  public User findUser(Long id){
     return userMapper.selectById(id);
   }
 
