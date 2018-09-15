@@ -1,1 +1,27 @@
-Hello list of users
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <title th:text="#{app.title}"> Title </title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1 th:text="#{app.user-details}">Details</h1>
+<table>
+  <tr>
+    <th th:text="#{user.id}"/></th>
+    <th th:text="#{user.login}"/></th>
+    <th th:text="#{user.firstName}"></th>
+    <th th:text="#{user.lastName}"></th>
+  </tr>
+  <tr th:each="user : ${userList}">
+    <td th:text="${user.id}">Id</td>
+    <td th:text="${user.login}">Login</td>
+    <td th:text="${user.firstName}">First name</td>
+    <td th:text="${user.lastName}">Last name</td>
+  </tr>
+</table>
+<a href="#" th:href="@{/user/new}" th:text="#{user.add-more-users}">Add User</a>
+</body>
+</html> 

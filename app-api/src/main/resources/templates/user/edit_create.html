@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <title th:text="#{app.title}"> Title </title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1 th:text="#{app.create-user}">Create</h1>
+<form action="#" th:action="@{/user/save}" th:object="${userForm}" method="POST">
+  <table>
+    <tr><td th:text="#{user.id}"/></td>
+      <td>
+        <input type="text" th:field="*{id}" />
+        <label th:if="${#fields.hasErrors('id')}" th:text="#{error.user.id}" th:class="'error'">Id Error</label>
+      </td>
+    </tr>
+    
+    <tr><td th:text="#{user.login}"></td>
+      <td>
+        <input type="text" th:field="*{login}" />
+        <label th:if="${#fields.hasErrors('login')}" th:text="#{error.user.name}" th:class="'error'">Login Error</label>
+      </td>
+    </tr>
+
+    <tr><td th:text="#{user.password}"></td>
+      <td>
+        <input type="text" th:field="*{password}" />
+        <label th:if="${#fields.hasErrors('password')}" th:text="#{error.user.name}" th:class="'error'">Password Error</label>
+      </td>
+    </tr>
+    
+    <tr><td th:text="#{user.firstName}"></td>
+      <td>
+        <input type="text" th:field="*{firstName}" />
+        <label th:if="${#fields.hasErrors('firstName')}" th:text="#{error.user.name}" th:class="'error'">First name Error</label>
+      </td>
+    </tr>
+    
+    <tr><td th:text="#{user.lastName}"></td>
+      <td>
+        <input type="text" th:field="*{lastName}" />
+        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.user.name}" th:class="'error'">Last Error</label>
+      </td>
+    </tr>
+
+    <tr><td colspan="2">
+      <input type="submit" th:value="#{user.form.submit}"/>
+      <input type="reset" th:value="#{user.form.reset}"/>
+    </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
