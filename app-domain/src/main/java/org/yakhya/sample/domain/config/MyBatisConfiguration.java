@@ -47,7 +47,7 @@ public class MyBatisConfiguration {
   @Bean
   public SqlSessionFactory sqlSessionFactory() throws Exception {
     SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-    //sessionFactory.setConfigLocation(new ClassPathResource("META-INF/spring/mybatis-config.xml"));
+    sessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
     sessionFactory.setDataSource(getDataSource());
     return sessionFactory.getObject();
   }
