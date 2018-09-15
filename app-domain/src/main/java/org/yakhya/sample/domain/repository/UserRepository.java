@@ -20,4 +20,8 @@ public class UserRepository {
   public User findUser(String id){
     return userMapper.selectById(id);
   }
+
+  public void save(User user) {
+    userMapper.insert(user);
+  }
 }
