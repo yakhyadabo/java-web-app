@@ -5,8 +5,7 @@ import org.yakhya.sample.api.config.AppView;
 public enum AppApiView implements AppView{
   USER_LIST("user/list"),
   USER_EDIT_CREATE("user/edit_create"),
-  USER_VIEW("user/view"),
-  USER_SETTINGS("user/settings");
+  USER_VIEW("user/view");
 
   private final String logicalViewName;
 
