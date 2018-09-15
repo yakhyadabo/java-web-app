@@ -10,16 +10,16 @@
 <h1 th:text="#{app.user-details}">Details</h1>
 <table>
   <tr>
-    <th th:text="#{user.id}"/></th>
-    <th th:text="#{user.login}"/></th>
-    <th th:text="#{user.firstName}"></th>
-    <th th:text="#{user.lastName}"></th>
+    <th th:text="#{user.id}"/>ID</th>
+    <th th:text="#{user.login}"/>Login</th>
+    <th th:text="#{user.firstName}">Yakhya</th>
+    <th th:text="#{user.lastName}">Dabo</th>
   </tr>
   <tr th:each="user : ${userList}">
-    <td th:text="${user.id}">Id</td>
-    <td th:text="${user.login}">Login</td>
-    <td th:text="${user.firstName}">First name</td>
-    <td th:text="${user.lastName}">Last name</td>
+    <td><a th:text="${user.id}" th:href="@{'/user/' + ${user.id}}">1000</a></td>
+    <td th:text="${user.login}">ydabo</td>
+    <td th:text="${user.firstName}">Yakhya</td>
+    <td th:text="${user.lastName}">Dabo</td>
   </tr>
 </table>
 <a href="#" th:href="@{/user/new}" th:text="#{user.add-more-users}">Add User</a>
