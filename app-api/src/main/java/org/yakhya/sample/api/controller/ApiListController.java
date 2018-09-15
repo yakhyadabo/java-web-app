@@ -15,20 +15,19 @@ public class ApiListController {
   private UserService userService;
 
   @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-  public AppApiView view(@PathVariable String id, Model model) {
+  public AppApiView view(@PathVariable Long id, Model model) {
     model.addAttribute("userView", userService.getUser(id));
     return AppApiView.USER_VIEW;
   }
 
   @RequestMapping(value = "/user/edit/{id}", method = RequestMethod.GET)
-  public AppApiView edit(@PathVariable String id, Model model) {
-    model.addAttribute("userView", userService.getUser(id));
+  public AppApiView edit(@PathVariable Long id, Model model) {
+    model.addAttribute("userForm", userService.getUser(id));
     return AppApiView.USER_EDIT_CREATE;
   }
 
-
   @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.GET)
-  public AppApiView delete(@PathVariable String id, Model model) {
+  public AppApiView delete(@PathVariable Long id, Model model) {
     model.addAttribute("userView", userService.getUser(id));
     return AppApiView.USER_LIST;
   }
