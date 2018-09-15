@@ -25,4 +25,14 @@ public class UserServiceImpl implements UserService {
   public User getUser(String id) {
     return userRepository.findUser(id);
   }
+
+  @Override
+  public void addUser(User user) {
+    userRepository.save(user);
+  }
+
+  @Override
+  public void deleteUser(String id) {
+
+  }
 }

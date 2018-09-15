@@ -3,11 +3,16 @@ package org.yakhya.sample.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.yakhya.sample.api.config.AppRedirect;
 import org.yakhya.sample.api.enums.AppApiView;
 import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.domain.model.User;
 
 @Controller
 public class ApiController {
@@ -21,14 +26,24 @@ public class ApiController {
   }
 
   @RequestMapping(value = "/user/list", method = RequestMethod.GET)
-  public AppApiView getAllUsers(Model model) {
+  public AppApiView list(Model model) {
     model.addAttribute("userList",userService.getUsers());
     return AppApiView.USER_LIST;
   }
 
-  @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-  public AppApiView getUser(@PathVariable String id, Model model) {
-    model.addAttribute("userView", userService.getUser(id));
-    return AppApiView.USER_VIEW;
+  @RequestMapping(value = "/user/new", method = RequestMethod.GET)
+  public AppApiView create(Model model) {
+    model.addAttribute("userForm", new User());
+    return AppApiView.USER_EDIT_CREATE;
+  }
+
+  @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+  public AppRedirect save(@ModelAttribute("userForm") User userForm,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
+
+    userService.addUser(userForm);
+
+    return new AppRedirect("/user/list");
   }
 }
