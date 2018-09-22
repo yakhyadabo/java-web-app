@@ -1,8 +1,5 @@
 package org.yakhya.sample.api.config;
 
-/*import org.junit.jupiter.api.extension.AfterAllCallback;
-import org.junit.jupiter.api.extension.BeforeAllCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
@@ -12,10 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import static org.springframework.test.util.AssertionErrors.assertEquals;
-import static org.springframework.test.util.AssertionErrors.assertTrue;*/
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
-public class AppMockMvc {/*implements BeforeAllCallback, AfterAllCallback {
+public class AppMockMvc {
 
   private static final String TEMPLATE_PREFIX = "/templates/";
   private static final String TEMPLATE_SUFFIX = ".html";
@@ -55,14 +52,4 @@ public class AppMockMvc {/*implements BeforeAllCallback, AfterAllCallback {
     };
   }
 
-  @Override
-  public void afterAll(ExtensionContext extensionContext) throws Exception {
-
-  }
-
-  @Override
-  public void beforeAll(ExtensionContext extensionContext) throws Exception {
-
-  }*/
 }
-

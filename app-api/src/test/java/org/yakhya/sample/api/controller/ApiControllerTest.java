@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.yakhya.sample.api.AppApi;
+import org.yakhya.sample.api.config.AppMockMvc;
 import org.yakhya.sample.api.service.UserService;
 import org.yakhya.sample.domain.mapper.UserMapper;
 import org.yakhya.sample.domain.model.User;
@@ -37,9 +38,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
-/*
-@SpringBootTest(classes = AppApi.class)
-@WebAppConfiguration*/
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApiControllerTest {
   private static final String TEMPLATE_PREFIX = "templates/";
@@ -51,14 +49,11 @@ public class ApiControllerTest {
   @Mock
   private UserService userService;
 
-  private MockMvc mockMvc;
+  private AppMockMvc mockMvc;
 
   @BeforeAll
   public void setup() {
-
-    this.mockMvc = MockMvcBuilders.standaloneSetup(this.apiController)
-        .setViewResolvers(viewResolver())
-        .build();
+    mockMvc = new AppMockMvc(apiController);
   }
 
   @Test
@@ -71,17 +66,10 @@ public class ApiControllerTest {
   public void shouldReturnDefaultMessage() throws Exception {
     when(userService.getUsers()).thenReturn(Arrays.asList(new User()));
 
-   mockMvc.perform(get("/user/lists"))//.andDo(print())
+   mockMvc.perform(get("/user/list"))//.andDo(print())
 
        .andExpect(status().is2xxSuccessful())
        .andExpect(content().string(containsString("Hello World")));
-  }
-
-  private InternalResourceViewResolver viewResolver() {
-    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-    viewResolver.setPrefix(TEMPLATE_PREFIX);
-    viewResolver.setSuffix(TEMPLATE_SUFFIX);
-    return viewResolver;
   }
 
 }
