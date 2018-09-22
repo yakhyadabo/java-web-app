@@ -1,9 +1,14 @@
 package org.yakhya.sample.domain.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import org.yakhya.sample.domain.model.Role;
+import lombok.NoArgsConstructor;
 
+@Builder(toBuilder = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
   private Long id;
   private String login;
