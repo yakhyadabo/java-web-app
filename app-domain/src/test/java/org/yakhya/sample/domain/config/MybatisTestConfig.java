@@ -6,6 +6,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.yakhya.sample.test.db.LiquibaseTestConfig;
@@ -27,7 +28,7 @@ public class MybatisTestConfig {
   @Bean
   public SqlSessionFactory sqlSessionFactory() throws Exception {
     SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-    //sessionFactory.setConfigLocation(new ClassPathResource("META-INF/spring/mybatis-db.xml"));
+    sessionFactory.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
     sessionFactory.setDataSource(getDataSource());
     return sessionFactory.getObject();
   }
