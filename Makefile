@@ -8,3 +8,12 @@ db-start:
 
 clean:
 	@docker-compose -f docker/postgres-db/compose.yml down -v --remove-orphans
+
+db-migrate:
+	@mvn -f app-db-migration/pom.xml spring-boot:run
+
+api-start:
+	@mvn -f app-api/pom.xml spring-boot:run
+
+backoffice-start:
+	@mvn -f app-backoffice/pom.xml spring-boot:run
