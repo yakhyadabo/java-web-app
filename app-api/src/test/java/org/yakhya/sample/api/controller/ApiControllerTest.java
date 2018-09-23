@@ -8,41 +8,27 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockBeans;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.yakhya.sample.api.AppApi;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.yakhya.sample.api.config.AppMockMvc;
+import org.yakhya.sample.api.enums.AppApiView;
 import org.yakhya.sample.api.service.UserService;
-import org.yakhya.sample.domain.mapper.UserMapper;
 import org.yakhya.sample.domain.model.User;
-import org.yakhya.sample.domain.repository.UserRepository;
 
 import java.util.Arrays;
+import java.util.List;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApiControllerTest {
-  private static final String TEMPLATE_PREFIX = "templates/";
-  private static final String TEMPLATE_SUFFIX = ".html";
-
   @InjectMocks
   private ApiController apiController;
 
@@ -57,19 +43,42 @@ public class ApiControllerTest {
   }
 
   @Test
-  @DisplayName("Just an example")
-  void justAnExample() {
-    System.out.println("This test method should be run");
+  @DisplayName("/user/save should create a user")
+  public void should_create_a_user() throws Exception {
+    when(userService.addUser(any(User.class)))
+        .thenReturn(User.builder().id(1L).build());
+
+    mockMvc.perform(postValidUser("/user/save"))
+        .andExpect(status().isFound())
+        .andExpect(mockMvc.redirect("/user/1"));
   }
 
   @Test
-  public void shouldReturnDefaultMessage() throws Exception {
-    when(userService.getUsers()).thenReturn(Arrays.asList(new User()));
+  @DisplayName("/user/list should return the list of users")
+  public void should_return_list_of_users() throws Exception {
+    when(userService.getUsers()).thenReturn(listOfUsers());
 
-   mockMvc.perform(get("/user/list"))//.andDo(print())
+    mockMvc.perform(get("/user/list"))
+        .andExpect(status().isOk())
+        .andExpect(model().hasNoErrors())
+        .andExpect(model().attributeExists("userList"))
+        .andExpect(mockMvc.view(AppApiView.USER_LIST));
+  }
 
-       .andExpect(status().is2xxSuccessful())
-       .andExpect(content().string(containsString("Hello World")));
+  private static MockHttpServletRequestBuilder postValidUser(String url) {
+    return post(url)
+        .param("login", "yakhya")
+        .param("firstName", "Yakhya")
+        .param("lastName", "Dabo");
+  }
+
+  private List<User> listOfUsers() {
+    return Arrays.asList(
+        User.builder().id(000L).login("yakhya").firstName("Yakhya").lastName("Dabo").build(),
+        User.builder().id(111L).login("max").firstName("Max").lastName("Wilson").build(),
+        User.builder().id(222L).login("dave").firstName("Dave").lastName("Shepherd").build(),
+        User.builder().id(333L).login("michel").firstName("Michel").lastName("Martin").build()
+    );
   }
 
 }

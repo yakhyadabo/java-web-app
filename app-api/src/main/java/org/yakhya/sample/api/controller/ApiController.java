@@ -42,8 +42,7 @@ public class ApiController {
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
-    userService.addUser(userForm);
-
-    return new AppRedirect("/user/list");
+    User newUser = userService.addUser(userForm);
+    return new AppRedirect("/user/" + newUser.getId());
   }
 }
