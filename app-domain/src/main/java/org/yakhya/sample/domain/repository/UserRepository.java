@@ -21,7 +21,8 @@ public class UserRepository {
     return userMapper.selectById(id);
   }
 
-  public void save(User user) {
+  public User save(User user) {
     userMapper.insert(user);
+    return user;
   }
 }
