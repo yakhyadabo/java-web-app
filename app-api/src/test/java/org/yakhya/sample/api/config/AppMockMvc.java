@@ -1,5 +1,6 @@
 package org.yakhya.sample.api.config;
 
+import org.springframework.test.util.AssertionErrors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
@@ -9,13 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 public class AppMockMvc {
 
-  private static final String TEMPLATE_PREFIX = "/templates/";
-  private static final String TEMPLATE_SUFFIX = ".html";
   private final MockMvc mockMvc;
 
   public AppMockMvc(Object controller) {
@@ -35,10 +33,10 @@ public class AppMockMvc {
     return result -> {
       ModelAndView mav = result.getModelAndView();
       assertTrue("No ModelAndView found", mav != null);
-      assertEquals("View name", view.getLogicalViewName(), mav.getViewName());
+      AssertionErrors.assertEquals("View name", view.getLogicalViewName(), mav.getViewName());
+      AssertionErrors.assertEquals("Forwarded URL",  view.getLogicalViewName(), result.getResponse().getForwardedUrl());
     };
   }
-
 
   public ResultMatcher redirect(final String someUrl) {
     //checkNotNull(someUrl);
@@ -48,7 +46,7 @@ public class AppMockMvc {
       View view = mav.getView();
       assertTrue("View must be an instance of RedirectView", view instanceof RedirectView);
       RedirectView redirectView = (RedirectView) view;
-      assertEquals("Redirect URL", redirectView.getUrl(), someUrl);
+      AssertionErrors.assertEquals("Redirect URL", redirectView.getUrl(), someUrl);
     };
   }
 
