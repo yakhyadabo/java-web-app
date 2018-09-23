@@ -11,6 +11,7 @@ import org.yakhya.sample.api.service.UserService;
 
 @Controller
 public class ApiListController {
+
   @Autowired
   private UserService userService;
 
