@@ -24,7 +24,7 @@ public class StudentMapperTest {
   @Autowired
   private NationalityMapper nationalityMapper;
 
-  private static Nationality UK = new Nationality("UK","United Kingdom");
+  private static Nationality SEN = new Nationality("SEN","Senegal");
 
   @Test
   public void should_find_student_by_using_personal_number(){
@@ -34,11 +34,11 @@ public class StudentMapperTest {
         .lastName("Dabo")
         .dateOfBirth(LocalDate.of(2000,01,15))
         .education(Education.BACHELOR)
-        .nationality(UK)
+        .nationality(SEN)
         .scholarshipHolder(Boolean.FALSE)
         .build();
 
-    nationalityMapper.insert(UK);
+    nationalityMapper.insert(SEN);
     studentMapper.insert(newStudent);
 
     Student student =  studentMapper.selectByPersonalNumber("000111");
