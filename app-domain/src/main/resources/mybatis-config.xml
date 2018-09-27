@@ -5,7 +5,8 @@
   </settings>
 
   <typeHandlers>
-    <!-- -->
+    <typeHandler handler="org.yakhya.sample.domain.handler.LocalDateTypeHandler"/>
+    <typeHandler handler="org.yakhya.sample.domain.handler.StringEnumTypeHandler"/>
   </typeHandlers>
 
 </configuration>
