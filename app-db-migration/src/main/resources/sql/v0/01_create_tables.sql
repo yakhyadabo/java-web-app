@@ -7,7 +7,8 @@ CREATE TABLE sample_user(
   login VARCHAR(25) NOT NULL,
   password VARCHAR(35) NOT NULL,
   first_name VARCHAR(40) NOT NULL,
-  last_name VARCHAR(40) NOT NULL
+  last_name VARCHAR(40) NOT NULL,
+  UNIQUE (login)
 );
 
 INSERT INTO sample_user VALUES (2, 'ydabo', 'password_DABO', 'Yakhya','Dabo');
@@ -26,7 +27,8 @@ ALTER SEQUENCE sample_user_id_seq OWNED BY sample_user.id;
 CREATE TABLE nationality(
   id SERIAL PRIMARY KEY,
   code VARCHAR(3) NOT NULL,
-  name VARCHAR(20) NOT NULL
+  name VARCHAR(20) NOT NULL,
+  UNIQUE (code)
 );
 
 INSERT INTO nationality (code,name) VALUES ('US', 'United States');
@@ -42,7 +44,8 @@ CREATE TABLE student(
   date_of_birth DATE,
   nationality_id INT REFERENCES nationality(id),
   education VARCHAR(1) NOT NULL,
-  scholarship_holder BOOLEAN DEFAULT 'F'
+  scholarship_holder BOOLEAN DEFAULT 'F',
+  UNIQUE (personal_number)
 );
 
 INSERT INTO student (personal_number,first_name,last_name,date_of_birth, nationality_id, education, scholarship_holder)
