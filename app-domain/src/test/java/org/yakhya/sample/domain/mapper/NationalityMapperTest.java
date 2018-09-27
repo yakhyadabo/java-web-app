@@ -21,7 +21,7 @@ public class NationalityMapperTest {
   private static Nationality SEN = new Nationality("SEN","Senegal");
 
   @Test
-  public void should_find_student_by_using_personal_number(){
+  public void should_find_nationality_by_using_country_code(){
 
     nationalityMapper.insert(SEN);
     Nationality nationality = nationalityMapper.selectByCode(SEN.getCode());
