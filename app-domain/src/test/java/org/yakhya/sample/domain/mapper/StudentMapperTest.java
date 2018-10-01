@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 import org.yakhya.sample.domain.config.MybatisTestConfig;
 import org.yakhya.sample.domain.enums.Education;
 import org.yakhya.sample.domain.model.Nationality;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = MybatisTestConfig.class)
+@Transactional
 public class StudentMapperTest {
 
   @Autowired
@@ -67,6 +69,8 @@ public class StudentMapperTest {
         .nationality(SEN)
         .scholarshipHolder(Boolean.FALSE)
         .build();
+
+    nationalityMapper.insert(SEN);
 
     studentMapper.insert(yakhya);
     studentMapper.insert(maxime);
