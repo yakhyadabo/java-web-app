@@ -1,5 +1,6 @@
 package org.yakhya.sample.domain.mapper;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,15 @@ public class StudentMapperTest {
   private NationalityMapper nationalityMapper;
 
   private static Nationality SEN = new Nationality("SEN","Senegal");
+  private static Nationality GMB = new Nationality("GMB","Gambia");
+  private static Nationality MAU = new Nationality("MAU","Mauritania");
+
+  @BeforeEach
+  public void setUp(){
+    nationalityMapper.insert(SEN);
+    nationalityMapper.insert(GMB);
+    nationalityMapper.insert(MAU);
+  }
 
   @Test
   public void should_find_student_by_using_personal_number(){
@@ -41,7 +51,6 @@ public class StudentMapperTest {
         .scholarshipHolder(Boolean.FALSE)
         .build();
 
-    nationalityMapper.insert(SEN);
     studentMapper.insert(yakhya);
 
     Student student =  studentMapper.selectByPersonalNumber("000111");
@@ -69,8 +78,6 @@ public class StudentMapperTest {
         .nationality(SEN)
         .scholarshipHolder(Boolean.FALSE)
         .build();
-
-    nationalityMapper.insert(SEN);
 
     studentMapper.insert(yakhya);
     studentMapper.insert(maxime);

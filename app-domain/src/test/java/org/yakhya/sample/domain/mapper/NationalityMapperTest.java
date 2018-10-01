@@ -1,6 +1,5 @@
 package org.yakhya.sample.domain.mapper;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,18 +29,13 @@ public class NationalityMapperTest {
 
   @BeforeEach
   public void setUp(){
-
-  }
-
-  @AfterEach
-  public void tearDown(){
-
+    nationalityMapper.insert(SEN);
+    nationalityMapper.insert(GMB);
+    nationalityMapper.insert(MAU);
   }
 
   @Test
   public void should_find_nationality_by_using_country_code(){
-
-    nationalityMapper.insert(SEN);
     Nationality nationality = nationalityMapper.selectByCode(SEN.getCode());
 
     assertThat(nationality).isEqualToComparingFieldByField(SEN);
@@ -49,10 +43,6 @@ public class NationalityMapperTest {
 
   @Test
   public void should_find_all_nationalities(){
-    nationalityMapper.insert(SEN);
-    nationalityMapper.insert(GMB);
-    nationalityMapper.insert(MAU);
-
     List<Nationality> nationalities = nationalityMapper.selectAll();
 
     assertThat(nationalities).contains(GMB,MAU);
