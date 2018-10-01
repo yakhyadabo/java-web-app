@@ -5,6 +5,7 @@ import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -39,5 +40,10 @@ public class LiquibaseTestConfig {
     liquibase.setContexts("integrationtest");
 
     return liquibase;
+  }
+
+  @Bean
+  public DataSourceTransactionManager transactionManager() {
+    return new DataSourceTransactionManager(getDataSource());
   }
 }
