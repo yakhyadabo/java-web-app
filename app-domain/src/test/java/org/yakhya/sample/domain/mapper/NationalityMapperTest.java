@@ -8,6 +8,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.yakhya.sample.domain.config.MybatisTestConfig;
 import org.yakhya.sample.domain.model.Nationality;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -27,5 +29,13 @@ public class NationalityMapperTest {
     Nationality nationality = nationalityMapper.selectByCode(SEN.getCode());
 
     assertThat(nationality).isEqualToComparingFieldByField(SEN);
+  }
+
+  @Test
+  public void should_find_all_nationalities(){
+
+    List<Nationality> nationalities = nationalityMapper.selectAll();
+
+    assertThat(nationalities).hasSize(2);
   }
 }
