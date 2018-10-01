@@ -11,6 +11,7 @@ import org.yakhya.sample.domain.model.Nationality;
 import org.yakhya.sample.domain.model.Student;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +29,7 @@ public class StudentMapperTest {
 
   @Test
   public void should_find_student_by_using_personal_number(){
-    Student newStudent = Student.builder()
+    Student yakhya = Student.builder()
         .personalNumber("000111")
         .firstName("Yakhya")
         .lastName("Dabo")
@@ -39,9 +40,39 @@ public class StudentMapperTest {
         .build();
 
     nationalityMapper.insert(SEN);
-    studentMapper.insert(newStudent);
+    studentMapper.insert(yakhya);
 
     Student student =  studentMapper.selectByPersonalNumber("000111");
-    assertThat(student).isEqualToComparingFieldByField(newStudent);
+    assertThat(student).isEqualToComparingFieldByField(yakhya);
+  }
+
+  @Test
+  public void should_find_student_all_students(){
+    Student yakhya = Student.builder()
+        .personalNumber("000111")
+        .firstName("Yakhya")
+        .lastName("Dabo")
+        .dateOfBirth(LocalDate.of(2000,01,15))
+        .education(Education.BACHELOR)
+        .nationality(SEN)
+        .scholarshipHolder(Boolean.FALSE)
+        .build();
+
+    Student maxime = Student.builder()
+        .personalNumber("000222")
+        .firstName("Maxime")
+        .lastName("Martin")
+        .dateOfBirth(LocalDate.of(2001,12,19))
+        .education(Education.BACHELOR)
+        .nationality(SEN)
+        .scholarshipHolder(Boolean.FALSE)
+        .build();
+
+    studentMapper.insert(yakhya);
+    studentMapper.insert(maxime);
+
+    List<Student> students = studentMapper.selectAll();
+
+    assertThat(students).contains(yakhya,maxime);
   }
 }

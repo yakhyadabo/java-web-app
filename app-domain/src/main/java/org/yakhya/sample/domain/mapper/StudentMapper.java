@@ -22,6 +22,10 @@ public interface StudentMapper {
       "values (#{personalNumber},#{firstName}, #{lastName}, #{dateOfBirth}, #{nationality.id}, #{education}, #{scholarshipHolder})";
 
   @Select(SELECT_ALL)
+  @Results(value = {
+      @Result(property = "id",column = "id"),
+      @Result(property = "nationality",column = "nationality_id", javaType = Nationality.class,one=@One(select = "getNationality")),
+  })
   List<Student> selectAll();
 
   @Select(SELECT_BY_ID)
