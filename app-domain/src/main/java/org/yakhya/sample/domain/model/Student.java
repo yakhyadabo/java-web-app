@@ -3,11 +3,13 @@ package org.yakhya.sample.domain.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.yakhya.sample.domain.enums.Education;
 
 import java.time.LocalDate;
 
+@EqualsAndHashCode(of = { "personalNumber" })
 @Builder(toBuilder = true)
 @Data
 @AllArgsConstructor
