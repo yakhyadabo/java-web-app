@@ -64,7 +64,7 @@ public class StudentMapperTest {
         .firstName("Yakhya")
         .lastName("Dabo")
         .dateOfBirth(LocalDate.of(2000,01,15))
-        .education(Education.BACHELOR)
+        .education(Education.MASTER)
         .nationality(SEN)
         .scholarshipHolder(Boolean.FALSE)
         .build();

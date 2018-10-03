@@ -43,5 +43,5 @@ public interface StudentMapper {
   boolean insert(Student user);
 
   @Select(GET_NATIONALITY)
-  Nationality getNationality(String id);
+  Nationality getNationality(Long id);
 }
