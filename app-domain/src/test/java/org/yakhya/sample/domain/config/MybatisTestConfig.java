@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
@@ -15,6 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @MapperScan({"org.yakhya.sample.domain.mapper"})
+@ComponentScan(basePackages = {"org.yakhya.sample.domain.repository"})
 @Import(LiquibaseTestConfig.class)
 public class MybatisTestConfig {
   @Bean

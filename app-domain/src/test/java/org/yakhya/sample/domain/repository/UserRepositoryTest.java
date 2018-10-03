@@ -12,7 +12,6 @@ import org.yakhya.sample.domain.config.MybatisTestConfig;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = MybatisTestConfig.class)
 @SpringBootApplication
-@ComponentScan(basePackages = {"org.yakhya.sample.domain.repository"})
 public class UserRepositoryTest {
 
   @Autowired
