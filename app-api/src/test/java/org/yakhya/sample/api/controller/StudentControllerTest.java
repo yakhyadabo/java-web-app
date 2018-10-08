@@ -1,6 +1,8 @@
 package org.yakhya.sample.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,20 +18,19 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -57,7 +58,7 @@ public class StudentControllerTest {
 
   @Test
   @DisplayName("/api/students GET should return the list of students")
-  public void should__the_list_of_students() throws Exception {
+  public void should_return_the_list_of_students() throws Exception {
     when(studentService.getStudents()).thenReturn(listOfStudents());
 
     mockMvc.perform(get("/api/students"))
@@ -69,6 +70,7 @@ public class StudentControllerTest {
         .andExpect(jsonPath("$[0].personalNumber").value(YAKHYA.getPersonalNumber()))
         .andExpect(jsonPath("$[0].firstName").value(YAKHYA.getFirstName()))
         .andExpect(jsonPath("$[0].lastName").value(YAKHYA.getLastName()))
+        //.andExpect(jsonPath("$[0].dateOfBirth").value(YAKHYA.getDateOfBirth()))
 
 
         //   .andExpect(header().string("Location", "http://localhost/api/books/123-1234567890"))
@@ -76,16 +78,38 @@ public class StudentControllerTest {
         .andDo(print());
   }
 
+  @Test
+  @DisplayName("/api/students POST should create a student")
+  public void should_create_a_student() throws Exception {
+    when(studentService.addStudent(YAKHYA)).thenReturn(YAKHYA);
+
+    mockMvc.perform(post("/api/students")
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .content(asJsonString(YAKHYA))
+        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(jsonPath("$.personalNumber").value(YAKHYA.getPersonalNumber()))
+        .andExpect(jsonPath("$.firstName").value(YAKHYA.getFirstName()))
+        .andExpect(jsonPath("$.lastName").value(YAKHYA.getLastName()))
+
+        .andDo(print());
+
+  }
+
   private List<Student> listOfStudents() {
     return Arrays.asList(YAKHYA, MAXIME, DAVID, MICHEL);
   }
 
-  public static String asJsonString(final Object obj) {
-    try {
-      return new ObjectMapper().writeValueAsString(obj);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+  public static byte[] asJsonString(Object object)
+      throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+    JavaTimeModule module = new JavaTimeModule();
+    mapper.registerModule(module);
+
+    return mapper.writeValueAsBytes(object);
   }
 
 }
