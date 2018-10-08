@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
@@ -94,6 +95,34 @@ public class StudentControllerTest {
         .andExpect(jsonPath("$.lastName").value(YAKHYA.getLastName()))
 
         .andDo(print());
+
+  }
+
+  @Test
+  @DisplayName("/api/students/{personalNumber} GET should return a student")
+  public void should_return_a_student() throws Exception {
+    when(studentService.getStudent("yyy0011")).thenReturn(Optional.of(YAKHYA));
+
+    mockMvc.perform(get("/api/students/yyy0011")
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(jsonPath("$.personalNumber").value(YAKHYA.getPersonalNumber()))
+        .andExpect(jsonPath("$.firstName").value(YAKHYA.getFirstName()))
+        .andExpect(jsonPath("$.lastName").value(YAKHYA.getLastName())); 
+
+  }
+
+  @Test
+  @DisplayName("/api/students/{personalNumber} GET should return a student")
+  public void should_return_404_when_student_is_not_found() throws Exception {
+    when(studentService.getStudent("zzz0011")).thenReturn(Optional.empty());
+
+    mockMvc.perform(get("/api/students/zzz0011")
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(status().isNotFound());
 
   }
 

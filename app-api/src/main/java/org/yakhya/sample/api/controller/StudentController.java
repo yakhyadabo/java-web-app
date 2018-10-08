@@ -37,4 +37,34 @@ public class StudentController {
     return new ResponseEntity<>(newStudent, HttpStatus.OK);
   }
 
+  @GetMapping("/students/{personalNumber}")
+  ResponseEntity<Student> getStudent(@PathVariable String personalNumber) {
+
+    return studentService.getStudent(personalNumber)
+        .map(student -> new ResponseEntity<>(student, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+  }
+
+  @DeleteMapping("/students/{personalNumber}")
+  void deleteStudent(@PathVariable String personalNumber) {
+    studentService.deleteStudent(personalNumber);
+  }
+
+
+/*  @PutMapping("/employees/{id}")
+  Student replaceStudent(@RequestBody Student newStudent, @PathVariable String personalNumber) {
+
+    return studentService.getStudent(personalNumber)
+        .map(employee -> {
+          employee.setName(newStudent.getName());
+          employee.setRole(newStudent.getRole());
+          return studentService.save(employee);
+          })
+        .orElseGet(() -> {
+          //newStudent.setId(id);
+          return studentService.addStudent(newStudent);
+        });
+  }*/
+
+
 }
