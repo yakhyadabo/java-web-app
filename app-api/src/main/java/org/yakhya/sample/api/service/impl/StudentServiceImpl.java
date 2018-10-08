@@ -8,6 +8,7 @@ import org.yakhya.sample.domain.model.Student;
 import org.yakhya.sample.domain.repository.StudentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,8 +23,9 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public Student getStudent(String personalNumber) {
-    return studentRepository.findByPersonalNumber(personalNumber);
+  public Optional<Student> getStudent(String personalNumber) {
+    Student student = studentRepository.findByPersonalNumber(personalNumber);
+    return Optional.ofNullable(student);
   }
 
   @Override
