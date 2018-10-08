@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -110,14 +111,14 @@ public class StudentControllerTest {
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(jsonPath("$.personalNumber").value(YAKHYA.getPersonalNumber()))
         .andExpect(jsonPath("$.firstName").value(YAKHYA.getFirstName()))
-        .andExpect(jsonPath("$.lastName").value(YAKHYA.getLastName())); 
+        .andExpect(jsonPath("$.lastName").value(YAKHYA.getLastName()));
 
   }
 
   @Test
   @DisplayName("/api/students/{personalNumber} GET should return a student")
   public void should_return_404_when_student_is_not_found() throws Exception {
-    when(studentService.getStudent("zzz0011")).thenReturn(Optional.empty());
+    when(studentService.getStudent(any(String.class))).thenReturn(Optional.empty());
 
     mockMvc.perform(get("/api/students/zzz0011")
         .accept(MediaType.APPLICATION_JSON_UTF8)
