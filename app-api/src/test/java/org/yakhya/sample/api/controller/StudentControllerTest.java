@@ -39,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static util.TestUtil.asJsonString;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -180,16 +181,6 @@ public class StudentControllerTest {
 
   private List<Student> listOfStudents() {
     return Arrays.asList(YAKHYA, MAXIME, DAVID, MICHEL);
-  }
-
-  public static byte[] asJsonString(Object object) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-    JavaTimeModule module = new JavaTimeModule();
-    mapper.registerModule(module);
-
-    return mapper.writeValueAsBytes(object);
   }
 
 }
