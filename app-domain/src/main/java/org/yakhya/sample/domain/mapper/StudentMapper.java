@@ -3,6 +3,7 @@ package org.yakhya.sample.domain.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -23,14 +24,14 @@ public interface StudentMapper {
       "values (#{personalNumber},#{firstName}, #{lastName}, #{dateOfBirth}, #{nationality.id}, #{education}, #{scholarshipHolder})";
 
   String UPDATE_STUDENT = "UPDATE student " +
-      " SET personal_number = #{personalNumber}," +
-      " first_name = #{firstName}, " +
-      " last_name = #{lastName}, " +
-      " date_of_birth = #{dateOfBirth}, " +
-      " nationality_id = #{nationality.id}, " +
-      " education = #{education} , " +
-      " scholarship_holder = #{scholarshipHolder} " +
-      " WHERE id = #{id}";
+      " SET personal_number = #{student.personalNumber}," +
+      " first_name = #{student.firstName}, " +
+      " last_name = #{student.lastName}, " +
+      " date_of_birth = #{student.dateOfBirth}, " +
+      " nationality_id = #{student.nationality.id}, " +
+      " education = #{student.education} , " +
+      " scholarship_holder = #{student.scholarshipHolder} " +
+      " WHERE personal_number = #{personalNumber}";
 
   @Select(SELECT_ALL)
   @Results(value = {
@@ -57,5 +58,5 @@ public interface StudentMapper {
   Nationality getNationality(Long id);
 
   @Update(UPDATE_STUDENT)
-  boolean update(Student student);
+  boolean update(@Param("personalNumber")String personalNumber, @Param("student")Student newStudent);
 }

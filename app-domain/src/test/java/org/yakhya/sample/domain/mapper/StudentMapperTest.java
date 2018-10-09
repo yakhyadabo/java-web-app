@@ -101,14 +101,22 @@ public class StudentMapperTest {
 
     studentMapper.insert(student);
 
+    Student maxime = Student.builder()
+        .personalNumber("000222")
+        .firstName("Maxime")
+        .lastName("Martin")
+        .dateOfBirth(LocalDate.of(2001,12,19))
+        .education(Education.BACHELOR)
+        .nationality(SEN)
+        .scholarshipHolder(Boolean.FALSE)
+        .build();
 
-    student.setFirstName("Maxime");
-    student.setLastName("Martin");
-    studentMapper.update(student);
+    studentMapper.update(student.getPersonalNumber(), maxime);
 
-    Student newStudent = studentMapper.selectByPersonalNumber("000111");
+    Student newStudent = studentMapper.selectByPersonalNumber(maxime.getPersonalNumber());
     assertThat(newStudent.getFirstName()).isEqualTo("Maxime");
     assertThat(newStudent.getLastName()).isEqualTo("Martin");
+    assertThat(newStudent.getPersonalNumber()).isEqualTo("000222");
 
   }
 }

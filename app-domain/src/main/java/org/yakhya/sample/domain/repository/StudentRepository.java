@@ -20,13 +20,13 @@ public class StudentRepository {
     return studentMapper.selectByPersonalNumber(personalNumber);
   }
 
-  public Student save(Student student) {
+  public Student add(Student student) {
     studentMapper.insert(student);
     return student;
   }
 
-  public Student update(Student student) {
-    studentMapper.update(student);
+  public Student update(String personalNumber, Student student) {
+    studentMapper.update(personalNumber, student);
     return student;
   }
 }
