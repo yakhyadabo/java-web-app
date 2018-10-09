@@ -9,5 +9,6 @@ public interface StudentService {
   List<Student> getStudents();
   Optional<Student> getStudent(String personalNumber);
   Student addStudent(Student user);
+  Student updateStudent(String personalNumber, Student student);
   void deleteStudent(String personalNumber);
 }

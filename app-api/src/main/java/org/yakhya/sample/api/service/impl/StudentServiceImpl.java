@@ -30,10 +30,12 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student addStudent(Student student) {
-    return Optional.of(student)
-        .filter(s -> s.exists())
-        .map(s -> studentRepository.update(s))
-        .orElse(studentRepository.save(student));
+    return studentRepository.add(student);
+  }
+
+  @Override
+  public Student updateStudent(String personalNumber, Student student) {
+    return studentRepository.update(personalNumber, student);
   }
 
   @Override

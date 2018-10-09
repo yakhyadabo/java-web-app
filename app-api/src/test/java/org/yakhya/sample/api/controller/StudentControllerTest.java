@@ -162,7 +162,8 @@ public class StudentControllerTest {
   @Test
   @DisplayName("/api/students/{personalNumber} PUT should update student")
   public void should_update_student() throws Exception {
-    when(studentService.addStudent(MAXIME)).thenReturn(MAXIME);
+    when(studentService.getStudent(YAKHYA.getPersonalNumber())).thenReturn(Optional.of(YAKHYA));
+    when(studentService.updateStudent(YAKHYA.getPersonalNumber(), MAXIME)).thenReturn(MAXIME);
 
     mockMvc.perform(put("/api/students/"+ YAKHYA.getPersonalNumber())
         .accept(MediaType.APPLICATION_JSON_UTF8)

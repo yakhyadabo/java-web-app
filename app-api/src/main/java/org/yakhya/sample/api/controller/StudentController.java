@@ -71,18 +71,20 @@ public class StudentController {
 
 
   @PutMapping("/students/{personalNumber}")
-  Student replaceStudent(@RequestBody Student newStudent, @PathVariable String personalNumber) {
+  ResponseEntity<StudentDTO> replaceStudent(@RequestBody StudentDTO newStudent, @PathVariable String personalNumber) {
 
     return studentService.getStudent(personalNumber)
-        .map(student -> {
-              Student.builder()
-                .firstName(newStudent.getFirstName())
-                .lastName(newStudent.getLastName())
-                  /*...*/
-                .build();
-              return studentService.addStudent(newStudent);
-            }
-        ).orElseGet(() -> studentService.addStudent(newStudent));
+        .map(student -> Student.builder()
+              .personalNumber(newStudent.getPersonalNumber())
+              .firstName(newStudent.getFirstName())
+              .lastName(newStudent.getLastName())
+              .dateOfBirth(newStudent.getDateOfBirth())
+              /*...*/
+              .build())
+        .map(student -> studentService.updateStudent(personalNumber, student))
+        .map(studentToStudentDTOMapper)
+        .map(studentDTO -> new ResponseEntity<>(studentDTO, HttpStatus.OK))
+        .get();
   }
 
 
