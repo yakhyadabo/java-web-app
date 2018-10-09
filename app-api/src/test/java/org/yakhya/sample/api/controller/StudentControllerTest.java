@@ -28,6 +28,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -125,6 +126,24 @@ public class StudentControllerTest {
         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(status().isNotFound());
 
+  }
+
+  @Test
+  @DisplayName("/api/students/{personalNumber} PUT should update student")
+  public void should_update_student() throws Exception {
+    when(studentService.addStudent(MAXIME)).thenReturn(MAXIME);
+
+    mockMvc.perform(put("/api/students/"+ YAKHYA.getPersonalNumber())
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .content(asJsonString(MAXIME))
+        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(jsonPath("$.personalNumber").value(MAXIME.getPersonalNumber()))
+        .andExpect(jsonPath("$.firstName").value(MAXIME.getFirstName()))
+        .andExpect(jsonPath("$.lastName").value(MAXIME.getLastName()));
+
+    // verify which method has been called (add or update)
   }
 
   private List<Student> listOfStudents() {

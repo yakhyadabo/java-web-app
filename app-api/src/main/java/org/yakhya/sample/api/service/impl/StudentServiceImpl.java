@@ -30,7 +30,10 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public Student addStudent(Student student) {
-    return studentRepository.save(student);
+    return Optional.of(student)
+        .filter(s -> s.exists())
+        .map(s -> studentRepository.update(s))
+        .orElse(studentRepository.save(student));
   }
 
   @Override
