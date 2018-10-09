@@ -1,16 +1,18 @@
 package org.yakhya.sample.domain.enums;
 
+import lombok.Data;
+
 public enum Education implements EnumType<String> {
 
   BACHELOR ("B", "BACHELOR"),
   MASTER ("M", "MASTER"),
   PHD ("P", "PHD");
 
-  private String education;
+  private String name;
   private String id;
 
   Education(String id, String education) {
-    this.education = education;
+    this.name = education;
     this.id = id;
   }
 
@@ -19,7 +21,7 @@ public enum Education implements EnumType<String> {
     return id;
   }
 
-  public String getEducation() {
-    return education;
+  public String getName() {
+    return name;
   }
 }
