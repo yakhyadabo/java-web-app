@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.yakhya.sample.api.model.StudentDTO;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -26,22 +29,37 @@ public class StudentController {
   @Autowired
   private StudentService studentService;
 
+  @Autowired
+  private Function<Student, StudentDTO> studentToStudentDTOMapper;
+
+  @Autowired
+  private Function<StudentDTO, Student> studentDTOToStudentMapper;
+
   @GetMapping("/students")
-  ResponseEntity<List<Student>> allStudent() {
-    List<Student> students = studentService.getStudents();
-    return new ResponseEntity<>(students, HttpStatus.OK);
+  ResponseEntity<List<StudentDTO>> allStudent() {
+    return new ResponseEntity<>(studentService.getStudents()
+        .parallelStream()
+        .map(studentToStudentDTOMapper)
+        .collect(toList()), HttpStatus.OK);
   }
 
   @PostMapping("/students")
-  ResponseEntity<Student> newStudent(@RequestBody Student student) {
-    Student newStudent = studentService.addStudent(student);
-    return new ResponseEntity<>(newStudent, HttpStatus.OK);
+  ResponseEntity<StudentDTO> newStudent(@RequestBody StudentDTO studentDTO) {
+
+    return Optional.of(studentDTO)
+        .map(studentDTOToStudentMapper)
+        .map(student -> studentService.addStudent(student))
+        .map(studentToStudentDTOMapper)
+        .map(student -> new ResponseEntity<>(student, HttpStatus.OK))
+        .get();
+
   }
 
   @GetMapping("/students/{personalNumber}")
-  ResponseEntity<Student> getStudent(@PathVariable String personalNumber) {
+  ResponseEntity<StudentDTO> getStudent(@PathVariable String personalNumber) {
 
     return studentService.getStudent(personalNumber)
+        .map(studentToStudentDTOMapper)
         .map(student -> new ResponseEntity<>(student, HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }

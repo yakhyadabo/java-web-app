@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -11,10 +12,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.yakhya.sample.api.model.StudentDTO;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
@@ -23,13 +27,14 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,6 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class StudentControllerTest {
 
   @InjectMocks
@@ -45,6 +51,12 @@ public class StudentControllerTest {
   @Mock
   private StudentService studentService;
 
+  @Mock
+  private Function<Student,StudentDTO> studentToStudentDTOMapper;
+
+  @Mock
+  private Function<StudentDTO, Student> studentDTOToStudentMapper;
+
   private MockMvc mockMvc;
 
   private static Student YAKHYA = Student.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
@@ -52,11 +64,30 @@ public class StudentControllerTest {
   private static Student DAVID =  Student.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
   private static Student MICHEL = Student.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
+  private static StudentDTO DTO_YAKHYA = StudentDTO.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentDTO DTO_MAXIME = StudentDTO.builder().personalNumber("mm00222").firstName("Maxime").lastName("Wilson").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentDTO DTO_DAVID =  StudentDTO.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentDTO DTO_MICHEL = StudentDTO.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
+
+
   @BeforeAll
-  public void setup() {
+  public void setUpAll() {
     mockMvc = MockMvcBuilders
         .standaloneSetup(controller)
         .build();
+  }
+
+  @BeforeEach
+  public void setUpEach(){
+    when(studentToStudentDTOMapper.apply(YAKHYA)).thenReturn(DTO_YAKHYA);
+    when(studentToStudentDTOMapper.apply(MAXIME)).thenReturn(DTO_MAXIME);
+    when(studentToStudentDTOMapper.apply(DAVID)).thenReturn(DTO_DAVID);
+    when(studentToStudentDTOMapper.apply(MICHEL)).thenReturn(DTO_MICHEL);
+
+    when(studentDTOToStudentMapper.apply(DTO_YAKHYA)).thenReturn(YAKHYA);
+    when(studentDTOToStudentMapper.apply(DTO_MAXIME)).thenReturn(MAXIME);
+    when(studentDTOToStudentMapper.apply(DTO_DAVID)).thenReturn(DAVID);
+    when(studentDTOToStudentMapper.apply(DTO_MICHEL)).thenReturn(MICHEL);
   }
 
   @Test
@@ -150,8 +181,7 @@ public class StudentControllerTest {
     return Arrays.asList(YAKHYA, MAXIME, DAVID, MICHEL);
   }
 
-  public static byte[] asJsonString(Object object)
-      throws IOException {
+  public static byte[] asJsonString(Object object) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
