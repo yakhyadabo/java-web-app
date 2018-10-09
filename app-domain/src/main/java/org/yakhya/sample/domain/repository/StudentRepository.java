@@ -24,4 +24,9 @@ public class StudentRepository {
     studentMapper.insert(student);
     return student;
   }
+
+  public Student update(Student student) {
+    studentMapper.update(student);
+    return student;
+  }
 }

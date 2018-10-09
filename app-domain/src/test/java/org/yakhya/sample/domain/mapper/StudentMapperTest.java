@@ -86,4 +86,29 @@ public class StudentMapperTest {
 
     assertThat(students).contains(yakhya,maxime);
   }
+
+  @Test
+  public void should_update_student(){
+    Student student = Student.builder()
+        .personalNumber("000111")
+        .firstName("Yakhya")
+        .lastName("Dabo")
+        .dateOfBirth(LocalDate.of(2000,01,15))
+        .education(Education.MASTER)
+        .nationality(SEN)
+        .scholarshipHolder(Boolean.FALSE)
+        .build();
+
+    studentMapper.insert(student);
+
+
+    student.setFirstName("Maxime");
+    student.setLastName("Martin");
+    studentMapper.update(student);
+
+    Student newStudent = studentMapper.selectByPersonalNumber("000111");
+    assertThat(newStudent.getFirstName()).isEqualTo("Maxime");
+    assertThat(newStudent.getLastName()).isEqualTo("Martin");
+
+  }
 }

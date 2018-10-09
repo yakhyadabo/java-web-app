@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 import org.yakhya.sample.domain.model.Nationality;
 import org.yakhya.sample.domain.model.Student;
@@ -20,6 +21,16 @@ public interface StudentMapper {
   String SELECT_BY_PERSONAL_NUMBER = "SELECT * FROM student where personal_number=#{personalNumber}";
   String INSERT_USER = "Insert into student (personal_number, first_name, last_name, date_of_birth, nationality_id, education, scholarship_holder) " +
       "values (#{personalNumber},#{firstName}, #{lastName}, #{dateOfBirth}, #{nationality.id}, #{education}, #{scholarshipHolder})";
+
+  String UPDATE_STUDENT = "UPDATE student " +
+      " SET personal_number = #{personalNumber}," +
+      " first_name = #{firstName}, " +
+      " last_name = #{lastName}, " +
+      " date_of_birth = #{dateOfBirth}, " +
+      " nationality_id = #{nationality.id}, " +
+      " education = #{education} , " +
+      " scholarship_holder = #{scholarshipHolder} " +
+      " WHERE id = #{id}";
 
   @Select(SELECT_ALL)
   @Results(value = {
@@ -44,4 +55,7 @@ public interface StudentMapper {
 
   @Select(GET_NATIONALITY)
   Nationality getNationality(Long id);
+
+  @Update(UPDATE_STUDENT)
+  boolean update(Student student);
 }
