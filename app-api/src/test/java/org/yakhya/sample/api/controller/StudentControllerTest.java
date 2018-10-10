@@ -1,8 +1,5 @@
 package org.yakhya.sample.api.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +19,6 @@ import org.yakhya.sample.api.model.StudentDTO;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
