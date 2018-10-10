@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
+import org.yakhya.sample.backoffice.config.AppResponseResolver;
+import org.yakhya.sample.backoffice.config.AppView;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 

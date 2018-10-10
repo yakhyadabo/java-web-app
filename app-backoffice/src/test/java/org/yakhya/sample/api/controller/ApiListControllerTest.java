@@ -10,8 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.yakhya.sample.api.config.AppMockMvc;
-import org.yakhya.sample.api.enums.AppApiView;
-import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.backoffice.controller.ApiListController;
+import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.service.UserService;
 import org.yakhya.sample.domain.model.User;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -44,7 +45,7 @@ class ApiListControllerTest {
   @DisplayName("/user/1 should return a user")
   public void should_return_a_user() throws Exception {
     when(userService.getUser(USER_ID))
-        .thenReturn(User.builder().id(USER_ID).login("yakhya").firstName("Yakhya").lastName("Dabo").build());
+        .thenReturn(User.builder().login("yakhya").firstName("Yakhya").lastName("Dabo").build());
 
     mockMvc.perform(get("/user/"+USER_ID))
         .andExpect(status().isOk())

@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.config;
+package org.yakhya.sample.backoffice.config;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;

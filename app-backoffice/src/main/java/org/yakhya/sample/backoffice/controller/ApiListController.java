@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.controller;
+package org.yakhya.sample.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.yakhya.sample.api.enums.AppApiView;
-import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.service.UserService;
 
 @Controller
 public class ApiListController {

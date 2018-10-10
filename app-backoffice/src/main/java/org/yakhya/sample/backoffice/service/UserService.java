@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.service;
+package org.yakhya.sample.backoffice.service;
 
 import org.yakhya.sample.domain.model.User;
 

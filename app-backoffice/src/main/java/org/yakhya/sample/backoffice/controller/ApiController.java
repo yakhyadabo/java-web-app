@@ -1,17 +1,16 @@
-package org.yakhya.sample.api.controller;
+package org.yakhya.sample.backoffice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.yakhya.sample.api.config.AppRedirect;
-import org.yakhya.sample.api.enums.AppApiView;
-import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.backoffice.config.AppRedirect;
+import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.service.UserService;
 import org.yakhya.sample.domain.model.User;
 
 @Controller
@@ -37,7 +36,7 @@ public class ApiController {
     return AppApiView.USER_EDIT_CREATE;
   }
 
-  @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+  @RequestMapping(value = "/user/add", method = RequestMethod.POST)
   public AppRedirect save(@ModelAttribute("userForm") User userForm,
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {

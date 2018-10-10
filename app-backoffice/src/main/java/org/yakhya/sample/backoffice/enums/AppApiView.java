@@ -1,6 +1,6 @@
-package org.yakhya.sample.api.enums;
+package org.yakhya.sample.backoffice.enums;
 
-import org.yakhya.sample.api.config.AppView;
+import org.yakhya.sample.backoffice.config.AppView;
 
 public enum AppApiView implements AppView{
   USER_LIST("user/list"),

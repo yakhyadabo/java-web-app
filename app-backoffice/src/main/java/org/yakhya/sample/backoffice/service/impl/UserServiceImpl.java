@@ -1,9 +1,9 @@
-package org.yakhya.sample.api.service.impl;
+package org.yakhya.sample.backoffice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.backoffice.service.UserService;
 import org.yakhya.sample.domain.model.User;
 import org.yakhya.sample.domain.repository.UserRepository;
 

@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.config;
+package org.yakhya.sample.backoffice.config;
 
 public class AppRedirect implements AppResponse {
   private final String url;

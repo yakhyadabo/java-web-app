@@ -1,11 +1,11 @@
-package org.yakhya.sample.api;
+package org.yakhya.sample.backoffice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.yakhya.sample.api.config.AppResponseResolver;
+import org.yakhya.sample.backoffice.config.AppResponseResolver;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ import java.util.List;
 //@SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {
-    "org.yakhya.sample.api.controller",
-    "org.yakhya.sample.api.service",
+    "org.yakhya.sample.backoffice.controller",
+    "org.yakhya.sample.backoffice.service",
     "org.yakhya.sample.domain.config"})
-public class AppApi implements WebMvcConfigurer {
+public class AppBackoffice implements WebMvcConfigurer {
 
   public static void main(String[] args) {
-    SpringApplication.run(AppApi.class,args);
+    SpringApplication.run(AppBackoffice.class,args);
   }
 
   @Override

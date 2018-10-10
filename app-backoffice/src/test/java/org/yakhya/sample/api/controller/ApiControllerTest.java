@@ -11,8 +11,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.yakhya.sample.api.config.AppMockMvc;
-import org.yakhya.sample.api.enums.AppApiView;
-import org.yakhya.sample.api.service.UserService;
+import org.yakhya.sample.backoffice.controller.ApiController;
+import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.service.UserService;
 import org.yakhya.sample.domain.model.User;
 
 import java.util.Arrays;
@@ -23,7 +24,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
@@ -43,19 +43,19 @@ public class ApiControllerTest {
   }
 
   @Test
-  @DisplayName("/user/save should create a user")
+  @DisplayName("/user/add should create a user")
   public void should_create_a_user() throws Exception {
     when(userService.addUser(any(User.class)))
-        .thenReturn(User.builder().id(1L).build());
+        .thenReturn(User.builder().build());
 
-    mockMvc.perform(postValidUser("/user/save"))
+    mockMvc.perform(postValidUser("/user/add"))
         .andExpect(status().isFound())
         .andExpect(mockMvc.redirect("/user/1"));
   }
 
   @Test
   @DisplayName("/user/list should return the list of users")
-  public void should_return_list_of_users() throws Exception {
+  public void should_display_view_with_the_list_of_users() throws Exception {
     when(userService.getUsers()).thenReturn(listOfUsers());
 
     mockMvc.perform(get("/user/list"))
@@ -74,10 +74,10 @@ public class ApiControllerTest {
 
   private List<User> listOfUsers() {
     return Arrays.asList(
-        User.builder().id(000L).login("yakhya").firstName("Yakhya").lastName("Dabo").build(),
-        User.builder().id(111L).login("max").firstName("Max").lastName("Wilson").build(),
-        User.builder().id(222L).login("dave").firstName("Dave").lastName("Shepherd").build(),
-        User.builder().id(333L).login("michel").firstName("Michel").lastName("Martin").build()
+        User.builder().login("yakhya").firstName("Yakhya").lastName("Dabo").build(),
+        User.builder().login("max").firstName("Max").lastName("Wilson").build(),
+        User.builder().login("dave").firstName("Dave").lastName("Shepherd").build(),
+        User.builder().login("michel").firstName("Michel").lastName("Martin").build()
     );
   }
 
