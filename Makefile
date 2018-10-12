@@ -6,7 +6,7 @@ build:
 db-start:
 	@docker-compose -f docker/postgres-db/compose.yml up
 
-clean:
+db-clean:
 	@docker-compose -f docker/postgres-db/compose.yml down -v --remove-orphans
 
 db-migrate:
