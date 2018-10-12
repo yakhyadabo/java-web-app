@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.yakhya.sample.api.model.StudentDTO;
+import org.yakhya.sample.api.model.StudentResource;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
@@ -30,36 +30,36 @@ public class StudentController {
   private StudentService studentService;
 
   @Autowired
-  private Function<Student, StudentDTO> studentToStudentDTOMapper;
+  private Function<Student, StudentResource> studentToStudentResourceMapper;
 
   @Autowired
-  private Function<StudentDTO, Student> studentDTOToStudentMapper;
+  private Function<StudentResource, Student> studentResourceToStudentMapper;
 
   @GetMapping("/students")
-  ResponseEntity<List<StudentDTO>> allStudent() {
+  ResponseEntity<List<StudentResource>> allStudent() {
     return new ResponseEntity<>(studentService.getStudents()
         .parallelStream()
-        .map(studentToStudentDTOMapper)
+        .map(studentToStudentResourceMapper)
         .collect(toList()), HttpStatus.OK);
   }
 
   @PostMapping("/students")
-  ResponseEntity<StudentDTO> newStudent(@RequestBody StudentDTO studentDTO) {
+  ResponseEntity<StudentResource> newStudent(@RequestBody StudentResource studentResource) {
 
-    return Optional.of(studentDTO)
-        .map(studentDTOToStudentMapper)
+    return Optional.of(studentResource)
+        .map(studentResourceToStudentMapper)
         .map(student -> studentService.addStudent(student))
-        .map(studentToStudentDTOMapper)
+        .map(studentToStudentResourceMapper)
         .map(student -> new ResponseEntity<>(student, HttpStatus.OK))
         .get();
 
   }
 
   @GetMapping("/students/{personalNumber}")
-  ResponseEntity<StudentDTO> getStudent(@PathVariable String personalNumber) {
+  ResponseEntity<StudentResource> getStudent(@PathVariable String personalNumber) {
 
     return studentService.getStudent(personalNumber)
-        .map(studentToStudentDTOMapper)
+        .map(studentToStudentResourceMapper)
         .map(student -> new ResponseEntity<>(student, HttpStatus.OK))
         .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
@@ -71,21 +71,20 @@ public class StudentController {
 
 
   @PutMapping("/students/{personalNumber}")
-  ResponseEntity<StudentDTO> replaceStudent(@RequestBody StudentDTO newStudent, @PathVariable String personalNumber) {
+  ResponseEntity<StudentResource> replaceStudent(@RequestBody StudentResource newStudentResource, @PathVariable String personalNumber) {
 
     return studentService.getStudent(personalNumber)
         .map(student -> Student.builder()
-              .personalNumber(newStudent.getPersonalNumber())
-              .firstName(newStudent.getFirstName())
-              .lastName(newStudent.getLastName())
-              .dateOfBirth(newStudent.getDateOfBirth())
+              .personalNumber(newStudentResource.getPersonalNumber())
+              .firstName(newStudentResource.getFirstName())
+              .lastName(newStudentResource.getLastName())
+              .dateOfBirth(newStudentResource.getDateOfBirth())
               /*...*/
               .build())
         .map(student -> studentService.updateStudent(personalNumber, student))
-        .map(studentToStudentDTOMapper)
-        .map(studentDTO -> new ResponseEntity<>(studentDTO, HttpStatus.OK))
+        .map(studentToStudentResourceMapper)
+        .map(studentResource -> new ResponseEntity<>(studentResource, HttpStatus.OK))
         .get();
   }
-
 
 }

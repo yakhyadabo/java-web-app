@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.yakhya.sample.api.model.StudentDTO;
+import org.yakhya.sample.api.model.StudentResource;
 import org.yakhya.sample.api.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
 
@@ -49,10 +49,10 @@ public class StudentControllerTest {
   private StudentService studentService;
 
   @Mock
-  private Function<Student,StudentDTO> studentToStudentDTOMapper;
+  private Function<Student,StudentResource> studentToStudentResourceMapper;
 
   @Mock
-  private Function<StudentDTO, Student> studentDTOToStudentMapper;
+  private Function<StudentResource, Student> studentResourceToStudentMapper;
 
   private MockMvc mockMvc;
 
@@ -61,10 +61,10 @@ public class StudentControllerTest {
   private static Student DAVID =  Student.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
   private static Student MICHEL = Student.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
-  private static StudentDTO DTO_YAKHYA = StudentDTO.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentDTO DTO_MAXIME = StudentDTO.builder().personalNumber("mm00222").firstName("Maxime").lastName("Wilson").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentDTO DTO_DAVID =  StudentDTO.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentDTO DTO_MICHEL = StudentDTO.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentResource Resource_YAKHYA = StudentResource.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentResource Resource_MAXIME = StudentResource.builder().personalNumber("mm00222").firstName("Maxime").lastName("Wilson").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentResource Resource_DAVID =  StudentResource.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentResource Resource_MICHEL = StudentResource.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
 
   @BeforeAll
@@ -76,15 +76,15 @@ public class StudentControllerTest {
 
   @BeforeEach
   public void setUpEach(){
-    when(studentToStudentDTOMapper.apply(YAKHYA)).thenReturn(DTO_YAKHYA);
-    when(studentToStudentDTOMapper.apply(MAXIME)).thenReturn(DTO_MAXIME);
-    when(studentToStudentDTOMapper.apply(DAVID)).thenReturn(DTO_DAVID);
-    when(studentToStudentDTOMapper.apply(MICHEL)).thenReturn(DTO_MICHEL);
+    when(studentToStudentResourceMapper.apply(YAKHYA)).thenReturn(Resource_YAKHYA);
+    when(studentToStudentResourceMapper.apply(MAXIME)).thenReturn(Resource_MAXIME);
+    when(studentToStudentResourceMapper.apply(DAVID)).thenReturn(Resource_DAVID);
+    when(studentToStudentResourceMapper.apply(MICHEL)).thenReturn(Resource_MICHEL);
 
-    when(studentDTOToStudentMapper.apply(DTO_YAKHYA)).thenReturn(YAKHYA);
-    when(studentDTOToStudentMapper.apply(DTO_MAXIME)).thenReturn(MAXIME);
-    when(studentDTOToStudentMapper.apply(DTO_DAVID)).thenReturn(DAVID);
-    when(studentDTOToStudentMapper.apply(DTO_MICHEL)).thenReturn(MICHEL);
+    when(studentResourceToStudentMapper.apply(Resource_YAKHYA)).thenReturn(YAKHYA);
+    when(studentResourceToStudentMapper.apply(Resource_MAXIME)).thenReturn(MAXIME);
+    when(studentResourceToStudentMapper.apply(Resource_DAVID)).thenReturn(DAVID);
+    when(studentResourceToStudentMapper.apply(Resource_MICHEL)).thenReturn(MICHEL);
   }
 
   @Test
