@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.yakhya.sample.domain.enums.Role;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder(toBuilder = true)
 @Data
@@ -15,5 +17,10 @@ public class User extends UIDBaseEntity{
   private String password;
   private String firstName;
   private String lastName;
-  private Role role;
+  private String email;
+  private Set<ProfileType> profiles = new HashSet<>();
+
+  public void addProfile(ProfileType profileType){
+    this.profiles.add(profileType);
+  }
 }

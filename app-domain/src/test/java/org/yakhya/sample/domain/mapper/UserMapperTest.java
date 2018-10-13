@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.yakhya.sample.domain.config.MybatisTestConfig;
+import org.yakhya.sample.domain.model.ProfileType;
 import org.yakhya.sample.domain.model.User;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -31,10 +35,12 @@ public class UserMapperTest {
         .password("myPassword")
         .firstName("Yakhya")
         .lastName("Dabo")
+        .profiles(new HashSet<>()) // default ????
         .build();
 
     userMapper.insert(newUser);
-    User user =  userMapper.selectByLogin("yakhyadabo");
-    assertThat(user).isEqualToComparingFieldByField(newUser);
+    User selectedUser =  userMapper.selectByLogin("yakhyadabo");
+
+    assertThat(selectedUser).isEqualToComparingFieldByField(newUser);
   }
 }
