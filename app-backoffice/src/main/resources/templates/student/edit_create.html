@@ -26,7 +26,22 @@
     <tr><td th:text="#{student.lastName}"></td>
       <td>
         <input type="text" th:field="*{lastName}" />
-        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.student.lastName}" th:class="'error'">Last Error</label>
+        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.student.lastName}" th:class="'error'">Last Name Error</label>
+      </td>
+    </tr>
+
+    <tr><td th:text="#{student.lastName}"></td>
+      <td>
+        <select th:field="*{education}">
+          <option value="" selected="selected" th:text="#{student.form.field.none}">None</option>
+          <option
+              th:each="education : ${T(org.yakhya.sample.domain.enums.Education).values()}"
+              th:value="${education}"
+              th:text="${education.name}"
+              th:classappend="!*{education} ? 'valid'"
+              th:errorclass="error"/>
+        </select>
+        <label th:if="${#fields.hasErrors('education')}" th:text="#{error.student.education}" th:class="'error'">Education Error</label>
       </td>
     </tr>
 

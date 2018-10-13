@@ -16,9 +16,9 @@ public class StudentToStudentViewMapper implements Function<Student, StudentView
         .lastName(student.getLastName())
         .personalNumber(student.getPersonalNumber())
         .dateOfBirth(student.getDateOfBirth())
-        .education(student.getEducation().getName())
+        .education(student.getEducation())
         .scholarshipHolder(student.getScholarshipHolder())
-        .nationality(student.getNationality())
+     //   .nationality(student.getNationality())
         .build();
   }
 }

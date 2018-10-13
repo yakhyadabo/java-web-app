@@ -8,13 +8,14 @@ import java.util.function.Function;
 
 @Component
 public class StudentViewToStudentMapper implements Function<StudentView, Student> {
+
   @Override
   public Student apply(StudentView studentView) {
     return Student.builder()
         .firstName(studentView.getFirstName())
         .lastName(studentView.getLastName())
         .personalNumber(studentView.getPersonalNumber())
+        .education(studentView.getEducation())
         .build();
-
   }
 }

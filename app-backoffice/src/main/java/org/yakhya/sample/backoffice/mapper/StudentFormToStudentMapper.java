@@ -9,13 +9,14 @@ import java.util.function.Function;
 
 @Component
 public class StudentFormToStudentMapper implements Function<StudentForm, Student> {
+
   @Override
   public Student apply(StudentForm studentForm) {
     return Student.builder()
         .firstName(studentForm.getFirstName())
         .lastName(studentForm.getLastName())
         .personalNumber(studentForm.getPersonalNumber())
+        .education(studentForm.getEducation())
         .build();
-
   }
 }

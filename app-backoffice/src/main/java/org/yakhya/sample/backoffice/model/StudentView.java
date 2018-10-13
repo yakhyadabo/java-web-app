@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.yakhya.sample.domain.model.Nationality;
+import org.yakhya.sample.domain.enums.Education;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @EqualsAndHashCode(of = { "personalNumber" })
 @Builder(toBuilder = true)
@@ -19,7 +20,8 @@ public class StudentView {
   private String firstName;
   private String lastName;
   private LocalDate dateOfBirth;
-  private String education;
-  private Nationality nationality;
+  private Education education;
+  private List<NationalityView> nationalityList;
+  private NationalityView nationality;
   private Boolean scholarshipHolder;
 }
