@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.config;
+package org.yakhya.sample.backoffice.config;
 
 import org.springframework.test.util.AssertionErrors;
 import org.springframework.test.web.servlet.MockMvc;

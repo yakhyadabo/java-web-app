@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+  <title th:text="#{app.title}"> Title </title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1 th:text="#{app.student-details}">Details</h1>
+<table>
+  <tr>
+    <th th:text="#{student.personalNumber}"/>Login</th>
+    <th th:text="#{student.firstName}">Yakhya</th>
+    <th th:text="#{student.lastName}">Dabo</th>
+  </tr>
+  <tr th:each="student : ${studentList}">
+    <td><a th:text="${student.personalNumber}" th:href="@{'/students/' + ${student.personalNumber}}">YYY1000</a></td>
+    <td th:text="${student.firstName}">Yakhya</td>
+    <td th:text="${student.lastName}">Dabo</td>
+  </tr>
+</table>
+<a href="#" th:href="@{/students/new}" th:text="#{student.add-more-students}">Add Student</a>
+</body>
+</html> 

@@ -1,4 +1,4 @@
-package org.yakhya.sample.api.service;
+package org.yakhya.sample.backoffice.service;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

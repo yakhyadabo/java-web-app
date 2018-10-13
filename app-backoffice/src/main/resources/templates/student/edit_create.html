@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+  <title th:text="#{app.title}"> Title </title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<h1 th:text="#{app.create-student}">Create</h1>
+<form action="#" th:action="@{/students/save}" th:object="${studentForm}" method="POST">
+  <table>
+    
+    <tr><td th:text="#{student.personalNumber}"></td>
+      <td>
+        <input type="text" th:field="*{personalNumber}" />
+        <label th:if="${#fields.hasErrors('personalNumber')}" th:text="#{error.student.name}" th:class="'error'">Personal Number Error</label>
+      </td>
+    </tr>
+    
+    <tr><td th:text="#{student.firstName}"></td>
+      <td>
+        <input type="text" th:field="*{firstName}" />
+        <label th:if="${#fields.hasErrors('firstName')}" th:text="#{error.student.name}" th:class="'error'">First name Error</label>
+      </td>
+    </tr>
+    
+    <tr><td th:text="#{student.lastName}"></td>
+      <td>
+        <input type="text" th:field="*{lastName}" />
+        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.student.name}" th:class="'error'">Last Error</label>
+      </td>
+    </tr>
+
+    <tr><td colspan="2">
+      <input type="submit" th:value="#{student.form.submit}"/>
+      <input type="reset" th:value="#{student.form.reset}"/>
+    </td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

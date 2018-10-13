@@ -3,9 +3,9 @@ package org.yakhya.sample.backoffice.enums;
 import org.yakhya.sample.backoffice.config.AppView;
 
 public enum AppApiView implements AppView{
-  USER_LIST("user/list"),
-  USER_EDIT_CREATE("user/edit_create"),
-  USER_VIEW("user/view");
+  STUDENT_LIST("student/list"),
+  STUDENT_EDIT_CREATE("student/edit_create"),
+  STUDENT_VIEW("student/view");
 
   private final String logicalViewName;
 
