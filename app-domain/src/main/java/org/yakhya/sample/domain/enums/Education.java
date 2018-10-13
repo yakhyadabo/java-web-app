@@ -1,7 +1,5 @@
 package org.yakhya.sample.domain.enums;
 
-import lombok.Data;
-
 public enum Education implements EnumType<String> {
 
   BACHELOR ("B", "BACHELOR"),
