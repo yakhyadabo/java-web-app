@@ -12,21 +12,21 @@
     <tr><td th:text="#{student.personalNumber}"></td>
       <td>
         <input type="text" th:field="*{personalNumber}" />
-        <label th:if="${#fields.hasErrors('personalNumber')}" th:text="#{error.student.name}" th:class="'error'">Personal Number Error</label>
+        <label th:if="${#fields.hasErrors('personalNumber')}" th:text="#{error.student.personalNumber}" th:class="'error'">Personal Number Error</label>
       </td>
     </tr>
     
     <tr><td th:text="#{student.firstName}"></td>
       <td>
         <input type="text" th:field="*{firstName}" />
-        <label th:if="${#fields.hasErrors('firstName')}" th:text="#{error.student.name}" th:class="'error'">First name Error</label>
+        <label th:if="${#fields.hasErrors('firstName')}" th:text="#{error.student.firstName}" th:class="'error'">First name Error</label>
       </td>
     </tr>
     
     <tr><td th:text="#{student.lastName}"></td>
       <td>
         <input type="text" th:field="*{lastName}" />
-        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.student.name}" th:class="'error'">Last Error</label>
+        <label th:if="${#fields.hasErrors('lastName')}" th:text="#{error.student.lastName}" th:class="'error'">Last Error</label>
       </td>
     </tr>
 
