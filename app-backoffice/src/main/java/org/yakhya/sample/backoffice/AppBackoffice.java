@@ -16,6 +16,7 @@ import java.util.List;
 @ComponentScan(basePackages = {
     "org.yakhya.sample.backoffice.controller",
     "org.yakhya.sample.backoffice.service",
+    "org.yakhya.sample.backoffice.mapper",
     "org.yakhya.sample.domain.config"})
 public class AppBackoffice implements WebMvcConfigurer {
 
