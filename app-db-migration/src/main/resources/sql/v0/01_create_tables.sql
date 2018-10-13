@@ -8,12 +8,36 @@ CREATE TABLE sample_user(
   password VARCHAR(35) NOT NULL,
   first_name VARCHAR(40) NOT NULL,
   last_name VARCHAR(40) NOT NULL,
+
   UNIQUE (login)
 );
 
 INSERT INTO sample_user VALUES (2, 'ydabo', 'password_DABO', 'Yakhya','Dabo');
 INSERT INTO sample_user VALUES (4, 'ldiop', 'password_DIOP','Lamine','Diop');
 INSERT INTO sample_user VALUES (6, 'mfall', 'rKrpbSV8X34QHbBv','Makhta','Fall');
+
+CREATE TABLE profile_type(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(10) NOT NULL,
+  description VARCHAR(50) NOT NULL,
+
+  UNIQUE (name)
+);
+
+INSERT INTO profile_type VALUES (1, 'ADMIN', 'ADMIN');
+INSERT INTO profile_type VALUES (2, 'GUEST', 'GUEST');
+
+
+CREATE TABLE user_profile_type(
+  sample_user_id INT REFERENCES sample_user(id),
+  user_profile_type_id INT REFERENCES profile_type(id),
+
+  UNIQUE (sample_user_id, user_profile_type_id)
+);
+
+INSERT INTO user_profile_type VALUES (2,1);
+INSERT INTO user_profile_type VALUES (4,2);
+INSERT INTO user_profile_type VALUES (6,2);
 
 --changeset sample-docs:2 dbms:postgresql
 
