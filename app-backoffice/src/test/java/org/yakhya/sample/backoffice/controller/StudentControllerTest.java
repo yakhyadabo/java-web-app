@@ -15,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.yakhya.sample.backoffice.config.AppMockMvc;
 import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.model.StudentForm;
 import org.yakhya.sample.backoffice.model.StudentView;
 import org.yakhya.sample.backoffice.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
@@ -47,6 +48,8 @@ public class StudentControllerTest {
   private static StudentView DAVID_VIEW =  StudentView.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
   private static StudentView MICHEL_VIEW = StudentView.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
+  private static StudentForm YAKHYA_FORM = StudentForm.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
+
   @InjectMocks
   private StudentController apiController;
 
@@ -58,6 +61,9 @@ public class StudentControllerTest {
 
   @Mock
   private Function<StudentView, Student> studentViewToStudentMapper;
+
+  @Mock
+  private Function<StudentForm, Student> studentFormToStudentMapper;
 
   private AppMockMvc mockMvc;
 
@@ -80,8 +86,9 @@ public class StudentControllerTest {
   @DisplayName("/students/add should create a student")
   public void should_create_a_user() throws Exception {
     when(userService.addStudent(YAKHYA)).thenReturn(YAKHYA);
+    when(studentFormToStudentMapper.apply(YAKHYA_FORM)).thenReturn(YAKHYA);
 
-    mockMvc.perform(postValidUser("/students/add"))
+    mockMvc.perform(postValidUser("/students/save"))
         .andExpect(status().isFound())
         .andExpect(mockMvc.redirect("/students/" + YAKHYA_VIEW.getPersonalNumber()));
   }

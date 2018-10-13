@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.yakhya.sample.backoffice.config.AppRedirect;
 import org.yakhya.sample.backoffice.enums.AppApiView;
+import org.yakhya.sample.backoffice.model.StudentForm;
 import org.yakhya.sample.backoffice.model.StudentView;
 import org.yakhya.sample.backoffice.service.StudentService;
 import org.yakhya.sample.domain.model.Student;
@@ -31,6 +32,9 @@ public class StudentController {
   @Autowired
   private Function<StudentView, Student> studentViewToStudentMapper;
 
+  @Autowired
+  private Function<StudentForm, Student> studentFormToStudentMapper;
+
   @RequestMapping("/")
   public void handleRequest() {
     throw new RuntimeException("test exception");
@@ -49,17 +53,17 @@ public class StudentController {
 
   @RequestMapping(value = "/students/new", method = RequestMethod.GET)
   public AppApiView create(Model model) {
-    model.addAttribute("studentView", new StudentView());
+    model.addAttribute("studentForm", new StudentForm());
     return AppApiView.STUDENT_EDIT_CREATE;
   }
 
-  @RequestMapping(value = "/students/add", method = RequestMethod.POST)
-  public AppRedirect save(@ModelAttribute("studentForm") StudentView newStudentView,
+  @RequestMapping(value = "/students/save", method = RequestMethod.POST)
+  public AppRedirect save(@ModelAttribute("studentForm") StudentForm studentForm,
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
 
-    StudentView studentView = Optional.of(newStudentView)
-        .map(studentViewToStudentMapper)
+    StudentView studentView = Optional.of(studentForm)
+        .map(studentFormToStudentMapper)
         .map(student -> studentService.addStudent(student))
         .map(studentToStudentViewMapper)
         .get();
