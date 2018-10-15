@@ -20,6 +20,6 @@ public class StudentResource {
   private String lastName;
   private LocalDate dateOfBirth;
   private String education;
-  private Nationality nationality;
+  private NationalityResource nationality;
   private Boolean scholarshipHolder;
 }

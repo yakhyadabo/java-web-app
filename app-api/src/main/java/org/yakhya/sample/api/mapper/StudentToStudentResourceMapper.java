@@ -1,7 +1,9 @@
 package org.yakhya.sample.api.mapper;
 
 import org.springframework.stereotype.Component;
+import org.yakhya.sample.api.model.NationalityResource;
 import org.yakhya.sample.api.model.StudentResource;
+import org.yakhya.sample.domain.model.Nationality;
 import org.yakhya.sample.domain.model.Student;
 
 import java.util.function.Function;
@@ -18,7 +20,14 @@ public class StudentToStudentResourceMapper implements Function<Student, Student
         .dateOfBirth(student.getDateOfBirth())
         .education(student.getEducation().getName())
         .scholarshipHolder(student.getScholarshipHolder())
-        .nationality(student.getNationality())
+        .nationality(of(student.getNationality()))
+        .build();
+  }
+
+  private static NationalityResource of(Nationality nationality){
+    return NationalityResource.builder()
+        .code(nationality.getCode())
+        .name(nationality.getName())
         .build();
   }
 }
