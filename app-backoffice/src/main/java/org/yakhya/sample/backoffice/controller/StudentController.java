@@ -30,9 +30,6 @@ public class StudentController {
   private Function<Student, StudentView> studentToStudentViewMapper;
 
   @Autowired
-  private Function<StudentView, Student> studentViewToStudentMapper;
-
-  @Autowired
   private Function<StudentForm, Student> studentFormToStudentMapper;
 
   @RequestMapping("/")
