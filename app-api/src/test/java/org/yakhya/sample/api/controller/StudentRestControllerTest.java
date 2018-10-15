@@ -40,10 +40,10 @@ import static util.TestUtil.asJsonString;
 @ExtendWith({SpringExtension.class, MockitoExtension.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @MockitoSettings(strictness = Strictness.LENIENT)
-public class StudentControllerTest {
+public class StudentRestControllerTest {
 
   @InjectMocks
-  private StudentController controller;
+  private StudentRestController controller;
 
   @Mock
   private StudentService studentService;

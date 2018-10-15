@@ -24,7 +24,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
-public class StudentController {
+public class StudentRestController {
 
   @Autowired
   private StudentService studentService;
