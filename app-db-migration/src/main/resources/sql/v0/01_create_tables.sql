@@ -65,8 +65,8 @@ CREATE TABLE student(
   personal_number VARCHAR(20) NOT NULL,
   first_name VARCHAR(20) NOT NULL,
   last_name VARCHAR(20) NOT NULL,
-  date_of_birth DATE,
-  nationality_id INT REFERENCES nationality(id),
+  date_of_birth DATE NOT NULL,
+  nationality_id INT NOT NULL REFERENCES nationality(id),
   education VARCHAR(1) NOT NULL,
   scholarship_holder BOOLEAN DEFAULT 'F',
   UNIQUE (personal_number)
