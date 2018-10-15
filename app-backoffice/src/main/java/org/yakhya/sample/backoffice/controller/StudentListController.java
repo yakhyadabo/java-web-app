@@ -21,9 +21,6 @@ public class StudentListController {
 
   @Autowired
   private Function<Student, StudentView> studentToStudentViewMapper;
-
-  @Autowired
-  private Function<StudentView, Student> studentViewToStudentMapper;
   
   @RequestMapping(value = "/students/{personalNumber}", method = RequestMethod.GET)
   public AppApiView view(@PathVariable String personalNumber, Model model) {
