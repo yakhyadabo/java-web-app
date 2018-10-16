@@ -18,12 +18,14 @@ import org.yakhya.sample.backoffice.enums.AppApiView;
 import org.yakhya.sample.backoffice.model.StudentForm;
 import org.yakhya.sample.backoffice.model.StudentView;
 import org.yakhya.sample.backoffice.service.StudentService;
+import org.yakhya.sample.backoffice.util.DateUtils;
 import org.yakhya.sample.domain.model.Student;
 import org.yakhya.sample.domain.model.User;
 import org.yaml.snakeyaml.error.YAMLException;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
@@ -43,10 +45,10 @@ public class StudentControllerTest {
   private static Student DAVID =  Student.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
   private static Student MICHEL = Student.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
-  private static StudentView YAKHYA_VIEW = StudentView.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentView MAXIME_VIEW = StudentView.builder().personalNumber("mm00222").firstName("Maxime").lastName("Wilson").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentView DAVID_VIEW =  StudentView.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static StudentView MICHEL_VIEW = StudentView.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static StudentView YAKHYA_VIEW = StudentView.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(of(2000,01,15)).build();
+  private static StudentView MAXIME_VIEW = StudentView.builder().personalNumber("mm00222").firstName("Maxime").lastName("Wilson").dateOfBirth(of(2000,01,15)).build();
+  private static StudentView DAVID_VIEW =  StudentView.builder().personalNumber("dd00333").firstName("David").lastName("Shepherd").dateOfBirth(of(2000,01,15)).build();
+  private static StudentView MICHEL_VIEW = StudentView.builder().personalNumber("mm00444").firstName("Michel").lastName("Martin").dateOfBirth(of(2000,01,15)).build();
 
   private static StudentForm YAKHYA_FORM = StudentForm.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
 
@@ -114,6 +116,10 @@ public class StudentControllerTest {
 
   private List<Student> listOfStudents() {
     return Arrays.asList(YAKHYA, MAXIME, DAVID, MICHEL);
+  }
+
+  private  static Date of(int year, int month, int day){
+    return DateUtils.asNullableDate(LocalDate.of(year,month,day));
   }
 
 }

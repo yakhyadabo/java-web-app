@@ -14,9 +14,11 @@ import org.yakhya.sample.backoffice.config.AppMockMvc;
 import org.yakhya.sample.backoffice.enums.AppApiView;
 import org.yakhya.sample.backoffice.model.StudentView;
 import org.yakhya.sample.backoffice.service.StudentService;
+import org.yakhya.sample.backoffice.util.DateUtils;
 import org.yakhya.sample.domain.model.Student;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -32,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class StudentListControllerTest {
   private static final String STUDENT_VIEW = "studentView";
   private static final Student YAKHYA = Student.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
-  private static final StudentView YAKHYA_VIEW = StudentView.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(LocalDate.of(2000,01,15)).build();
+  private static final StudentView YAKHYA_VIEW = StudentView.builder().personalNumber("yyy0011").firstName("Yakhya").lastName("Dabo").dateOfBirth(of(2000,01,15)).build();
 
   @InjectMocks
   private StudentListController apiListController;
@@ -71,5 +73,9 @@ class StudentListControllerTest {
         .andExpect(model().attribute(STUDENT_VIEW, hasProperty("firstName", equalTo(YAKHYA_VIEW.getFirstName()))))
         .andExpect(model().attribute(STUDENT_VIEW, hasProperty("lastName", equalTo(YAKHYA_VIEW.getLastName()))))
         .andExpect(mockMvc.view(AppApiView.STUDENT_VIEW));
+  }
+
+  private  static Date of(int year, int month, int day){
+    return DateUtils.asNullableDate(LocalDate.of(year,month,day));
   }
 }

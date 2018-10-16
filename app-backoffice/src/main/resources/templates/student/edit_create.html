@@ -30,6 +30,13 @@
       </td>
     </tr>
 
+    <tr><td th:text="#{student.dateOfBirth}"></td>
+      <td>
+        <input type="text" th:field="*{dateOfBirth}"  id="datepicker" contenteditable="false" placeholder="DD/MM/YYYY" class="form-control" />
+        <label th:if="${#fields.hasErrors('dateOfBirth')}" th:text="#{error.student.dateOfBirth}" th:class="'error'">Date of Birth Error</label>
+      </td>
+    </tr>
+
     <tr><td th:text="#{student.lastName}"></td>
       <td>
         <select th:field="*{education}">
@@ -45,6 +52,18 @@
       </td>
     </tr>
 
+    <tr><td th:text="#{student.nationality}"></td>
+      <td>
+        <select th:field="*{countryCode}">
+          <option value="" selected="selected" th:text="#{student.form.field.none}">None</option>
+          <option th:if="${nationalityList.rows !=null }" th:each="nationality : ${nationalityList.rows}"
+                  th:value="${nationality.code}"
+                  th:text="${nationality.name}"/>
+        </select>
+        <label th:if="${#fields.hasErrors('countryCode')}" th:text="#{error.student.nationality}" th:class="'error'">Nationality Error</label>
+      </td>
+    </tr>
+    
     <tr><td colspan="2">
       <input type="submit" th:value="#{student.form.submit}"/>
       <input type="reset" th:value="#{student.form.reset}"/>
