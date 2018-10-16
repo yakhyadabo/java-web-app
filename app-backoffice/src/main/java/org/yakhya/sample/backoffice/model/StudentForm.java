@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.yakhya.sample.domain.enums.Education;
 
 import java.time.LocalDate;
@@ -19,9 +20,11 @@ public class StudentForm {
   private String personalNumber;
   private String firstName;
   private String lastName;
+
+  @DateTimeFormat(pattern = "dd/MM/yyyy")
   private LocalDate dateOfBirth;
   private Education education;
-  private List<NationalityForm> nationalityList;
-  private NationalityForm nationality;
+  private List<NationalityRow> nationalityList;
+  private String countryCode;
   private Boolean scholarshipHolder;
 }

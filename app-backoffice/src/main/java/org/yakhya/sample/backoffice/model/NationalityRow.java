@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NationalityForm{
+public class NationalityRow{
+  private Long id;
   private String code;
   private String name;
 }
