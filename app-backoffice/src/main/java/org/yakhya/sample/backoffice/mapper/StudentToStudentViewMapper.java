@@ -3,6 +3,7 @@ package org.yakhya.sample.backoffice.mapper;
 import org.springframework.stereotype.Component;
 import org.yakhya.sample.backoffice.model.NationalityView;
 import org.yakhya.sample.backoffice.model.StudentView;
+import org.yakhya.sample.backoffice.util.DateUtils;
 import org.yakhya.sample.domain.model.Nationality;
 import org.yakhya.sample.domain.model.Student;
 
@@ -17,7 +18,7 @@ public class StudentToStudentViewMapper implements Function<Student, StudentView
         .firstName(student.getFirstName())
         .lastName(student.getLastName())
         .personalNumber(student.getPersonalNumber())
-        .dateOfBirth(student.getDateOfBirth())
+        .dateOfBirth(DateUtils.asNullableDate(student.getDateOfBirth()))
         .education(student.getEducation())
         .scholarshipHolder(student.getScholarshipHolder())
         .nationality(of(student.getNationality()))
