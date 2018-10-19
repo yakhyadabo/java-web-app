@@ -10,15 +10,19 @@
 <h1 th:text="#{app.student-list}">List</h1>
 <table>
   <tr>
+    <th th:text="#{student.view}"/>View</th>
+    <th th:text="#{student.edit}"/>Edit</th>
     <th th:text="#{student.personalNumber}"/>Personal Number</th>
-    <th th:text="#{student.firstName}">Yakhya</th>
-    <th th:text="#{student.lastName}">Dabo</th>
+    <th th:text="#{student.firstName}">First Name</th>
+    <th th:text="#{student.lastName}">Last Name</th>
     <th th:text="#{student.dateOfBirth}">Date of birth</th>
     <th th:text="#{student.education}">Education</th>
     <th th:text="#{student.nationality}">Nationality</th>
   </tr>
   <tr th:each="student : ${studentList}">
-    <td><a th:text="${student.personalNumber}" th:href="@{'/students/' + ${student.personalNumber}}">YYY1000</a></td>
+    <td><a th:text="#{student.view}" th:href="@{'/students/' + ${student.personalNumber}}">YYY1000</a></td>
+    <td><a th:text="#{student.edit}" th:href="@{'/students/edit/' + ${student.personalNumber}}">YYY1000</a></td>
+    <td><a th:text="${student.personalNumber}">YYY1000</a></td>
     <td th:text="${student.firstName}">Yakhya</td>
     <td th:text="${student.lastName}">Dabo</td>
     <td th:text="${#dates.format(student.dateOfBirth, 'dd-MM-yyyy')}">11-11-2000</td>
@@ -26,6 +30,8 @@
     <td th:text="${student.nationality.name}">UK</td>
   </tr>
 </table>
+<br>
+<br>
 <a href="#" th:href="@{/students/new}" th:text="#{student.add-more-students}">Add Student</a>
 </body>
 </html> 
