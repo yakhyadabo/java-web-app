@@ -1,5 +1,7 @@
 package org.yakhya.sample.backoffice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 
 @Controller
 public class StudentController {
+
+  private  static Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
   @Autowired
   private StudentService studentService;
@@ -55,27 +59,17 @@ public class StudentController {
         .collect(Collectors.toList());
 
     model.addAttribute("studentList", studentList);
+    LOGGER.info("");
+    LOGGER.info("Displaying list of students from /students/list");
     return AppApiView.STUDENT_LIST;
-  }
-
-  @RequestMapping(value = "/students/new", method = RequestMethod.GET)
-  public AppApiView create(Model model) {
-    List<NationalityRow> nationalityRows = nationalityService.findAll()
-        .stream()
-        .map(nationalityToNationalityFormMapper)
-        .collect(Collectors.toList());
-
-    NationalityList nationalityList = new NationalityList(nationalityRows);
-
-    model.addAttribute("studentForm", new StudentForm());
-    model.addAttribute("nationalityList", nationalityList);
-    return AppApiView.STUDENT_EDIT_CREATE;
   }
 
   @RequestMapping(value = "/students/save", method = RequestMethod.POST)
   public AppRedirect save(@ModelAttribute("studentForm") StudentForm studentForm,
                           BindingResult bindingResult,
                           RedirectAttributes redirectAttributes) {
+
+    LOGGER.info("Saving student /students/new");
 
     StudentView studentView = Optional.of(studentForm)
         .map(studentFormToStudentMapper)
