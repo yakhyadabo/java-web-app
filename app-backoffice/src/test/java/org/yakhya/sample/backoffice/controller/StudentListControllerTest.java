@@ -57,8 +57,6 @@ class StudentListControllerTest {
   private static final NationalityRow EN_ROW = NationalityRow.builder().code("EN").name("England").build();
   private static final NationalityRow FR_ROW = NationalityRow.builder().code("FR").name("France").build();
 
-
-
   @InjectMocks
   private StudentListController apiListController;
 

@@ -20,8 +20,6 @@ import org.yakhya.sample.backoffice.model.StudentView;
 import org.yakhya.sample.backoffice.service.StudentService;
 import org.yakhya.sample.backoffice.util.DateUtils;
 import org.yakhya.sample.domain.model.Student;
-import org.yakhya.sample.domain.model.User;
-import org.yaml.snakeyaml.error.YAMLException;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -29,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
