@@ -117,6 +117,24 @@ public class StudentMapperTest {
     assertThat(newStudent.getFirstName()).isEqualTo("Maxime");
     assertThat(newStudent.getLastName()).isEqualTo("Martin");
     assertThat(newStudent.getPersonalNumber()).isEqualTo("000222");
-
   }
+
+  @Test
+  public void should_delete_student(){
+    Student student = Student.builder()
+        .personalNumber("000111")
+        .firstName("Yakhya")
+        .lastName("Dabo")
+        .dateOfBirth(LocalDate.of(2000,01,15))
+        .education(Education.MASTER)
+        .nationality(SEN)
+        .scholarshipHolder(Boolean.FALSE)
+        .build();
+
+    studentMapper.delete(student.getPersonalNumber());
+
+    Student newStudent = studentMapper.selectByPersonalNumber(student.getPersonalNumber());
+    assertThat(newStudent).isNull();
+  }
+
 }

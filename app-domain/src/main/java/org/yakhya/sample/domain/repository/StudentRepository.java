@@ -29,4 +29,8 @@ public class StudentRepository {
     studentMapper.update(personalNumber, student);
     return student;
   }
+
+  public void delete(String personalNumber) {
+    studentMapper.delete(personalNumber);
+  }
 }

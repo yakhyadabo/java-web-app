@@ -1,5 +1,6 @@
 package org.yakhya.sample.domain.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Options;
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yakhya.sample.domain.model.Nationality;
 import org.yakhya.sample.domain.model.Student;
@@ -32,6 +34,9 @@ public interface StudentMapper {
       " education = #{student.education} , " +
       " scholarship_holder = #{student.scholarshipHolder} " +
       " WHERE personal_number = #{personalNumber}";
+
+  String DELETE_STUDENT ="DELETE FROM student WHERE personal_number=#{personalNumber}";
+
 
   @Select(SELECT_ALL)
   @Results(value = {
@@ -59,4 +64,7 @@ public interface StudentMapper {
 
   @Update(UPDATE_STUDENT)
   boolean update(@Param("personalNumber")String personalNumber, @Param("student")Student newStudent);
+
+  @Delete(DELETE_STUDENT)
+  void delete(String personalNumber);
 }
