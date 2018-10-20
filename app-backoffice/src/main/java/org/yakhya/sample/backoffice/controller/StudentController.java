@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.yakhya.sample.backoffice.config.AppRedirect;
 import org.yakhya.sample.backoffice.enums.AppApiView;
-import org.yakhya.sample.backoffice.model.NationalityList;
 import org.yakhya.sample.backoffice.model.NationalityRow;
 import org.yakhya.sample.backoffice.model.StudentForm;
 import org.yakhya.sample.backoffice.model.StudentView;
@@ -59,7 +58,6 @@ public class StudentController {
         .collect(Collectors.toList());
 
     model.addAttribute("studentList", studentList);
-    LOGGER.info("");
     LOGGER.info("Displaying list of students from /students/list");
     return AppApiView.STUDENT_LIST;
   }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.yakhya.sample.backoffice.config.AppRedirect;
 import org.yakhya.sample.backoffice.enums.AppApiView;
 import org.yakhya.sample.backoffice.model.NationalityList;
 import org.yakhya.sample.backoffice.model.NationalityRow;
@@ -92,12 +93,9 @@ public class StudentListController {
   }
 
   @RequestMapping(value = "/students/delete/{personalNumber}", method = RequestMethod.GET)
-  public AppApiView delete(@PathVariable String personalNumber, Model model) {
-    StudentView studentView = studentService.getStudent(personalNumber)
-        .map(studentToStudentViewMapper)
-        .get();
+  public AppRedirect delete(@PathVariable String personalNumber) {
+    studentService.deleteStudent(personalNumber);
 
-    model.addAttribute("studentView", studentView);
-    return AppApiView.STUDENT_LIST;
+    return new AppRedirect("/students/list");
   }
 }
