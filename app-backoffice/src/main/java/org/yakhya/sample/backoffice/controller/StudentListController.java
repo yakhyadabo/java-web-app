@@ -87,7 +87,7 @@ public class StudentListController {
 
     model.addAttribute("studentForm", studentForm);
     model.addAttribute("nationalityList", nationalityList);
-    LOGGER.info("Editing student {}", personalNumber);
+    LOGGER.info("Editing student {}", studentForm);
 
     return AppApiView.STUDENT_EDIT_CREATE;
   }
