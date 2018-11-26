@@ -73,11 +73,16 @@ CREATE TABLE student(
 );
 
 INSERT INTO student (personal_number,first_name,last_name,date_of_birth, nationality_id, education, scholarship_holder)
-VALUES ('222DDD', 'Yakhya','Dabo','2000-12-31',1,'B','T');
+VALUES ('222BBB', 'Yakhya','Dabo','2000-12-31',1,'B','F');
 
 INSERT INTO student (personal_number,first_name,last_name,date_of_birth, nationality_id, education, scholarship_holder)
-VALUES ('333DDD', 'Max','Ndiaye','2001-11-21',2,'B','F');
+VALUES ('333CCC', 'Max','Ndiaye','2001-11-21',2,'B','F');
 
+INSERT INTO student (personal_number,first_name,last_name,date_of_birth, nationality_id, education, scholarship_holder)
+VALUES ('444DDD', 'Sonko','Mohameth','2001-12-31',4,'P','F');
+
+INSERT INTO student (personal_number,first_name,last_name,date_of_birth, nationality_id, education, scholarship_holder)
+VALUES ('555EEE', 'SOW','Assane','2002-12-31',3,'B','F');
 
 --changeset sample-docs:4 dbms:postgresql
 
