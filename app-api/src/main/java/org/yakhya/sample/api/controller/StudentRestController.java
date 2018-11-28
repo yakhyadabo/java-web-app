@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class StudentRestController {
@@ -35,7 +37,7 @@ public class StudentRestController {
   @Autowired
   private Function<StudentResource, Student> studentResourceToStudentMapper;
 
-  @GetMapping("/students")
+  @GetMapping(path= {"/students", "/customers"})
   ResponseEntity<List<StudentResource>> allStudent() {
     return new ResponseEntity<>(studentService.getStudents()
         .parallelStream()
@@ -43,7 +45,7 @@ public class StudentRestController {
         .collect(toList()), HttpStatus.OK);
   }
 
-  @PostMapping("/students")
+  @PostMapping(path = {"/students", "/customer"})
   ResponseEntity<StudentResource> newStudent(@RequestBody StudentResource studentResource) {
 
     return Optional.of(studentResource)
@@ -55,7 +57,7 @@ public class StudentRestController {
 
   }
 
-  @GetMapping("/students/{personalNumber}")
+  @GetMapping(path = {"/students/{personalNumber}", "/customer/{id}"})
   ResponseEntity<StudentResource> getStudent(@PathVariable String personalNumber) {
 
     return studentService.getStudent(personalNumber)
