@@ -6,8 +6,8 @@ public enum Education implements EnumType<String> {
   MASTER ("M", "MASTER"),
   PHD ("P", "PHD");
 
-  private String name;
   private String id;
+  private String name;
 
   Education(String id, String education) {
     this.name = education;
@@ -21,5 +21,12 @@ public enum Education implements EnumType<String> {
 
   public String getName() {
     return name;
+  }
+
+  public static Education getById(String id) {
+    for(Education education : values()) {
+      if(education.id.equals(id)) return education;
+    }
+    throw new IllegalArgumentException("Id doesn't match any Education");
   }
 }
