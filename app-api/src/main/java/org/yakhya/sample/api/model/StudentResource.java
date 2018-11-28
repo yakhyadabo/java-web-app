@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.yakhya.sample.domain.model.Nationality;
 
 import java.time.LocalDate;
 
@@ -20,6 +19,6 @@ public class StudentResource {
   private String lastName;
   private LocalDate dateOfBirth;
   private String education;
-  private NationalityResource nationality;
+  private String countryCode;
   private Boolean scholarshipHolder;
 }
