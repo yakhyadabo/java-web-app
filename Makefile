@@ -17,3 +17,6 @@ api-start:
 
 backoffice-start:
 	@mvn -f app-backoffice/pom.xml spring-boot:run
+
+front-start:
+	@cd app-front && npm run serve 
