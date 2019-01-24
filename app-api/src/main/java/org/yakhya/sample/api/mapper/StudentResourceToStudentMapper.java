@@ -24,9 +24,8 @@ public class StudentResourceToStudentMapper implements Function<StudentResource,
         .lastName(studentResource.getLastName())
         .dateOfBirth(studentResource.getDateOfBirth())
         .education(Education.getById(studentResource.getEducation()))
-        .nationality(of(studentResource.getCountryCode()))
+        .nationality(of(studentResource.getNationality().getCode()))
         .build();
-
   }
 
   private Nationality of(String countryCode){

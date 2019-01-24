@@ -24,6 +24,7 @@ import java.util.function.Function;
 import static java.util.stream.Collectors.toList;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+//@CrossOrigin(origins = "${front.host}", maxAge = 3600)
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class StudentRestController {

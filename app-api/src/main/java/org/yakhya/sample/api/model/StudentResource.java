@@ -17,8 +17,8 @@ public class StudentResource {
   private String personalNumber;
   private String firstName;
   private String lastName;
-  private LocalDate dateOfBirth;
-  private String education;
-  private String countryCode;
+  private LocalDate dateOfBirth = LocalDate.of(1990,01,01);
+  private String education = "M";
+  private NationalityResource nationality = NationalityResource.builder().code("UK").name("United Kingdom").build();
   private Boolean scholarshipHolder;
 }

@@ -20,7 +20,7 @@ public class StudentToStudentResourceMapper implements Function<Student, Student
         .dateOfBirth(student.getDateOfBirth())
         .education(student.getEducation().getName())
         .scholarshipHolder(student.getScholarshipHolder())
-        .countryCode(of(student.getNationality()).getCode())
+        .nationality(of(student.getNationality()))
         .build();
   }
 
